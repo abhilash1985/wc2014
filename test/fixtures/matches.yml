@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  match: MyString
+  daily_challenge_id: 1
+  team_a_score: 1
+  team_b_score: 1
+  result: MyString
+  points: MyString
+
+two:
+  match: MyString
+  daily_challenge_id: 1
+  team_a_score: 1
+  team_b_score: 1
+  result: MyString
+  points: MyString
