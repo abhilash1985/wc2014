@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :predictions
+
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'home/index'
 
