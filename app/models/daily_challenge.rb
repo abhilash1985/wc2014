@@ -8,24 +8,28 @@ class DailyChallenge < ActiveRecord::Base
   scope :by_name, lambda { |name| where(name: name) }
   
   validates :name, :start_date, :end_date, :presence => true
-  
+  validates :name, :uniqueness => true
   
   class << self
     def create_daily_challenge(name, start_date, end_date)
-      challenge = DailyChallenge.by_name(name).first
-      unless challenge
-        challenge = DailyChallenge.new(name: name, start_date: start_date + '00:00', end_date: end_date + '18:00')
-        challenge.save
-      end
+      challenge = DailyChallenge.by_name(name).first_or_initialize
+      challenge.name = name
+      challenge.start_date = start_date.to_s + ' 00:00'
+      challenge.end_date = end_date.to_s + ' 18:00'
+      challenge.save!
+      challenge
     end
   end
   
-  def create_match(match, match_date, team_a_score, team_b_score, result)
-    match = self.matches.where(match: match).first
-    unless match
-      match = self.matches.new(match: match, match_date: match_date, team_a_score: team_a_score, team_b_score: team_b_score, result: result, points: 5 )
-      match.save
-    end
+  def create_match(game_id, match_name, played_on, team_a_score, team_b_score, result)
+    match = self.matches.where(game_id: game_id).first_or_initialize
+    match.match = match_name
+    match.points = 5
+    ['game_id', 'played_on', 'team_a_score', 'team_b_score', 'result'].each { |column|
+      match.send("#{column}=", eval(column))
+    }
+    match.save!
+    match
   end
   
 end

@@ -9,7 +9,9 @@ class Match < ActiveRecord::Base
   
   scope :by_daily_challenge, lambda { |dailiy_challenge_id| where(:daily_challenge_id => dailiy_challenge_id) }
   
-  def updat_predictions
+  validates :game_id, :match, :played_on, :presence => true, :uniqueness => true
+  
+  def update_predictions
     self.predictions.each { |prediction| prediction.save  }
   end
   
