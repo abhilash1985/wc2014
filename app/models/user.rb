@@ -4,8 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
          
-  has_many :predictions
+  has_many :daily_challenges_users
+  has_many :predictions, through: :daily_challenges_users
   has_many :matches, :through => :predictions
+  has_many :daily_challenges, through: :daily_challenges_users
          
   def show_name
     full_name.blank? ? email : full_name
@@ -50,10 +52,6 @@ class User < ActiveRecord::Base
   
   def total_played
     daily_challenges.count
-  end
-  
-  def daily_challenges
-    self.matches.map(&:daily_challenge).uniq
   end
   
   def score_count

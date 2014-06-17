@@ -1,5 +1,6 @@
 class Prediction < ActiveRecord::Base
-  belongs_to :user
+  # belongs_to :user
+  belongs_to :daily_challenges_user
   belongs_to :match
   
   after_save :calculate_points
