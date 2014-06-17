@@ -30,6 +30,8 @@ gem 'devise'
 gem "twitter-bootstrap-rails"
 gem "pundit"
 gem 'rails_admin'
+gem "fastercsv"
+gem "spreadsheet"
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
