@@ -7,7 +7,7 @@ class Prediction < ActiveRecord::Base
   
   include SharedMethods
   
-  scope :by_user, lambda { |user| where(:user_id => user) }
+  # scope :by_user, lambda { |user| where(:user_id => user) }
   scope :by_match, lambda { |match| where(:match_id => match) }
   
   def calculate_points

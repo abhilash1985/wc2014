@@ -1,7 +1,7 @@
 class Match < ActiveRecord::Base
   belongs_to :daily_challenge
   has_many :predictions
-  has_many :users, :through => :predictions
+  # has_many :users, :through => :predictions
   
   after_save :update_predictions
   
