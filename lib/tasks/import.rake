@@ -11,8 +11,7 @@ namespace :import do
         sheet1 = sheet.worksheet 0
         sheet1.each 1 do |row|
           user = User.create_user(row[1], row[2])
-          daily_challenge = DailyChallenge.create_daily_challenge(row[3], row[4], row[5])
-          match = daily_challenge.create_match(row[6], row[7], row[8], row[9], row[10])
+          match = Match.by_game_id(row[3]).first
           prediction = user.create_prediction(match, row[11], row[12], row[13], row[14])
         end
       end

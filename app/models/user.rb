@@ -22,12 +22,9 @@ class User < ActiveRecord::Base
   end
   
   def create_prediction(match, team_a_score, team_b_score, result)
-    prediction = self.predictions.where(match_id: match).first_or_initialize
-    prediction.team_a_score = team_a_score
-    prediction.team_b_score = team_b_score
-    prediction.result = result
-    prediction.save
-    prediction
+    daily_challenge = match.try(:daily_challenge)
+    daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
+    daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
   end
   
   def points_by_challenge
@@ -64,14 +61,19 @@ class User < ActiveRecord::Base
   
   class << self
     def create_user(first_name, email)
-      user = User.where(:first_name => first_name).first
+      user = User.where(:email => email).first
       unless user
         user = User.new(:email => email, :first_name => first_name, :password => first_name, :password_confirmation => first_name)
         user.save
       end
+      user
     end
   end
   
-  
+  def create_daily_challenge(daily_challenge)
+    daily_challenges_user = self.daily_challenges_users.by_daily_challenge(daily_challenge).first_or_initialize
+    daily_challenges_user.save
+    daily_challenges_user
+  end
   
 end

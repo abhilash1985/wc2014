@@ -8,6 +8,7 @@ class Match < ActiveRecord::Base
   include SharedMethods
   
   scope :by_daily_challenge, lambda { |dailiy_challenge_id| where(:daily_challenge_id => dailiy_challenge_id) }
+  scope :by_game_id, lambda { |game_id| where(:game_id => game_id) }
   
   validates :game_id, :match, :played_on, :presence => true, :uniqueness => true
   
