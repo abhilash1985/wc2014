@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get 'home/index'
 
   devise_for :users, controllers: {registrations: "registrations"}
+  
+  match '/points_table' => 'home#points_table', :as => 'points_table', :via => :get
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

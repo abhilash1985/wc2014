@@ -2,9 +2,12 @@ class DailyChallenge < ActiveRecord::Base
   has_many :matches
   has_many :daily_challenges_users
   has_many :users, through: :daily_challenges_users
+  has_many :predictions, through: :daily_challenges_users
   
   scope :active, lambda { where("end_date >= ?", Date.today) }
   scope :active_today, lambda { where("'#{Date.today.to_s} 09:00:00' between start_date and end_date" ) }
+  scope :today, lambda { where(:end_date => Date.today.beginning_of_day..Date.today.end_of_day ) }
+  scope :previous_day, lambda { where(:end_date => Date.yesterday.beginning_of_day..Date.yesterday.end_of_day ) }
   scope :by_name, lambda { |name| where(name: name) }
   
   validates :name, :start_date, :end_date, :presence => true
@@ -32,4 +35,7 @@ class DailyChallenge < ActiveRecord::Base
     match
   end
   
+  def total_points
+    matches.inject(0){ |a, v| a += v.points.to_i }
+  end
 end

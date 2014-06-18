@@ -40,11 +40,21 @@ class User < ActiveRecord::Base
   end
   
   def total_points_for_match(match)
-    self.predictions.by_match(match).sum(:calculate_points)
+    # predictions_for(daily_challenge)
+  end
+  
+  def total_points_for_challenge(daily_challenge)
+    predictions_for(daily_challenge).inject(0){|a, value| a += value.points.to_i }
+  end
+  
+  def total_percentage_for_challenge(daily_challenge)
+    points = BigDecimal.new total_points_for_challenge(daily_challenge)
+    total_points = BigDecimal.new daily_challenge.total_points
+    total_points == 0 ? 0 : (points/total_points).round(2)
   end
   
   def total_points
-    self.predictions.sum(:calculate_points)
+    self.predictions.inject(0){|a, value| a += value.calculate_points.to_i }
   end
   
   def total_played
@@ -74,6 +84,10 @@ class User < ActiveRecord::Base
     daily_challenges_user = self.daily_challenges_users.by_daily_challenge(daily_challenge).first_or_initialize
     daily_challenges_user.save
     daily_challenges_user
+  end
+  
+  def predictions_for(daily_challenge)
+    predictions.where("daily_challenges_users.daily_challenge_id" => daily_challenge).order('match_id')
   end
   
 end

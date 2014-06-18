@@ -1,0 +1,51 @@
+<%- model_class = Prediction -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => "#{@daily_challenge.try(:name)} - #{Date.yesterday.to_s(:date_format)}" %></h1>
+</div>
+<table class="table table-striped" border="1">
+  <thead>
+    <tr>
+      <th rowspan="3" valign="top"><%= "User" %></th>
+      <th rowspan="3" valign="top"><%= "Total Points" %></th>
+      <th rowspan="3" valign="top"><%= "Points in %" %></th>
+      <% @matches.each do |match| %>
+        <th colspan="2"><%= "Match #{match.game_id}" %></th>
+        <th>Winner</th>
+        <th>GD</th>
+        <th>Points</th>
+      <% end %>
+    </tr>
+    <tr>
+      <% @matches.each do |match| %>
+        <th><%= match.match.split('Vs')[0] %></th>
+        <th><%= match.match.split('Vs')[1] %></th>
+        <%=raw '<th></th>' * 3 %>
+      <% end %>
+    </tr>
+    <tr>
+      <% @matches.each do |match| %>
+        <th><%= match.team_a_score %></th>
+        <th><%= match.team_b_score %></th>
+        <th><%= match.result %></th>
+        <th><%= match.goal_difference %></th>
+        <th></th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+  	<% @users.each do |user| %>
+      <tr>
+      	<td><%= user.show_name %></td>
+      	<td><%= user.total_points_for_challenge(@daily_challenge) %></td>
+      	<td><%= user.total_percentage_for_challenge(@daily_challenge) %></td>
+      	<% user.predictions_for(@daily_challenge).each do |prediction| %>
+          <td><%= prediction.team_a_score %></td>
+          <td><%= prediction.team_b_score %></td>
+          <td><%= prediction.result %></td>
+          <td><%= prediction.goal_difference %></td>
+          <td><%= prediction.calculate_points %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

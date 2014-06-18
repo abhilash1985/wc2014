@@ -3,7 +3,7 @@ require 'logger'
 namespace :import do
   desc "Data Importation for all challenges, matches, predictions"
   task :predictions => :environment do |t, args|
-    # begin
+    begin
       file = "db/data/predictions.xls"
       p "*************************************************************************************************************"
       p "Importing File : #{file}"
@@ -19,9 +19,9 @@ namespace :import do
         end
       end
       p "****************************************Import Completed*****************************************************"
-    # rescue Exception => e
-      # puts "Error while importing #{e} #{e.backtrace}"
-    # end
+    rescue Exception => e
+      puts "Error while importing #{e} #{e.backtrace}"
+    end
   end
   
   desc "Import Data for all matches"
@@ -37,7 +37,7 @@ namespace :import do
             daily_challenge = DailyChallenge.create_daily_challenge(row[1], row[2], row[3])
             p "Created Challenge : #{row[1]}"
             match = daily_challenge.create_match(row[0], row[4], row[5], row[6], row[7], row[8])
-            p "Created Match : #{row[4]}"
+            p "Created Match : #{row[0]} : #{row[4]}"
           end
         end
       end

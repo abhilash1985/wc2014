@@ -1,0 +1,44 @@
+<%= form_for @prediction, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="control-group">
+    <%= f.label :daily_challenges_user_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :daily_challenges_user_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :match_id, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :match_id, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :team_a_score, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :team_a_score, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :team_b_score, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :team_b_score, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :result, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :result, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :points, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :points, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                predictions_path, :class => 'btn' %>
+  </div>
+<% end %>
