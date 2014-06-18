@@ -3,7 +3,7 @@ class Prediction < ActiveRecord::Base
   belongs_to :daily_challenges_user
   belongs_to :match
   
-  after_save :save_points
+  before_save :save_points
   
   include SharedMethods
   
@@ -12,11 +12,10 @@ class Prediction < ActiveRecord::Base
   
   def save_points
     self.points = calculate_points
-    self.save
   end
   
   def calculate_points
-    goals_for + goals_againts + goal_diff_points + winner
+    goals_for + goals_against + goal_diff_points + winner
   end
   
   def goals_for
