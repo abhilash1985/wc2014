@@ -63,8 +63,8 @@ class User < ActiveRecord::Base
     def create_user(first_name, email)
       user = User.where(:email => email).first
       unless user
-        user = User.new(:email => email, :first_name => first_name, :password => first_name, :password_confirmation => first_name)
-        user.save
+        user = User.new(:email => email, :first_name => first_name, :password => "#{first_name}12345", :password_confirmation => "#{first_name}12345")
+        user.save!
       end
       user
     end

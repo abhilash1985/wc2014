@@ -8,8 +8,8 @@ class DailyChallengesUser < ActiveRecord::Base
   
   def create_prediction(match, team_a_score, team_b_score, result)
     prediction = self.predictions.where(match_id: match).first_or_initialize
-    prediction.team_a_score = team_a_score
-    prediction.team_b_score = team_b_score
+    prediction.team_a_score = team_a_score.to_i
+    prediction.team_b_score = team_b_score.to_i
     prediction.result = result
     prediction.save
     prediction
