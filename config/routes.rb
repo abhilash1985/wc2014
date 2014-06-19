@@ -7,6 +7,14 @@ Rails.application.routes.draw do
   get 'home/index'
 
   devise_for :users, controllers: {registrations: "registrations"}
+  # devise_scope :user do 
+    # post '/change_password' => 'devise/registrations#change_password',  as: :change_password
+  # end
+  
+  match '/points_table' => 'home#points_table', :as => 'points_table', :via => :get
+  post '/change_password' => 'home#change_password',  as: :change_password
+  
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

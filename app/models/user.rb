@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+   
+  attr_accessor :current_password
          
   has_many :daily_challenges_users
   has_many :predictions, through: :daily_challenges_users
@@ -21,7 +23,7 @@ class User < ActiveRecord::Base
     current_user && current_user.is_admin
   end
   
-  def create_prediction(match, team_a_score, team_b_score, result)
+  def create_prediction(match, team_a_score, team_b_score, result, points = 0)
     daily_challenge = match.try(:daily_challenge)
     daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
     daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
@@ -40,11 +42,21 @@ class User < ActiveRecord::Base
   end
   
   def total_points_for_match(match)
-    self.predictions.by_match(match).sum(:calculate_points)
+    # predictions_for(daily_challenge)
+  end
+  
+  def total_points_for_challenge(daily_challenge)
+    predictions_for(daily_challenge).inject(0){|a, value| a += value.points.to_i }
+  end
+  
+  def total_percentage_for_challenge(daily_challenge)
+    points = BigDecimal.new total_points_for_challenge(daily_challenge)
+    total_points = BigDecimal.new daily_challenge.total_points
+    total_points == 0 ? 0 : (points/total_points).round(2)
   end
   
   def total_points
-    self.predictions.sum(:calculate_points)
+    self.predictions.inject(0){|a, value| a += value.calculate_points.to_i }
   end
   
   def total_played
@@ -63,8 +75,8 @@ class User < ActiveRecord::Base
     def create_user(first_name, email)
       user = User.where(:email => email).first
       unless user
-        user = User.new(:email => email, :first_name => first_name, :password => first_name, :password_confirmation => first_name)
-        user.save
+        user = User.new(:email => email, :first_name => first_name, :password => "#{first_name}12345", :password_confirmation => "#{first_name}12345")
+        user.save!
       end
       user
     end
@@ -74,6 +86,10 @@ class User < ActiveRecord::Base
     daily_challenges_user = self.daily_challenges_users.by_daily_challenge(daily_challenge).first_or_initialize
     daily_challenges_user.save
     daily_challenges_user
+  end
+  
+  def predictions_for(daily_challenge)
+    predictions.where("daily_challenges_users.daily_challenge_id" => daily_challenge).order('match_id')
   end
   
 end
