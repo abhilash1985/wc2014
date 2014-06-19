@@ -2,6 +2,8 @@ class DailyChallengesUser < ActiveRecord::Base
   belongs_to :user
   belongs_to :daily_challenge
   has_many :predictions
+
+  accepts_nested_attributes_for :predictions, :matches
   
   scope :by_daily_challenge, lambda { |daily_challenge| where(:daily_challenge_id => daily_challenge) }
   scope :by_user, lambda { |user| where(:user_id => user) }

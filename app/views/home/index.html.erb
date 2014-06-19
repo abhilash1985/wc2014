@@ -1,9 +1,34 @@
 <% @daily_challenges.each do |daily_challenge| %>
-   <% daily_challenge.matches.each do |match| %>
-     <p>Match : <%= match.match %></p>
-     <% teams = match.match.split('Vs') %>
-     <p><%= teams[0].strip %> : Score </p>
-     <p><%= teams[1].strip %> : Score </p>
-     <p>Result :  </p>
-   <% end %>
+	<% daily_challenge.matches.each do |match| %>
+	 <p>Match : <%= match.match %></p>
+	 <% teams = match.match.split('Vs') %>
+	 <p><%= teams[0].strip %> : Score </p>
+	 <p><%= teams[1].strip %> : Score </p>
+	 <p>Result :  </p>
+	<% end %>
+<% end %>
+
+<% dc_today = DailyChallenge.active_today.first %>
+<%= dc_today.name%>
+
+<% Match.by_daily_challenge(dc_today.id).each do |m|%>
+  <%= team = m.match %><br>
+  <%= m.played_on %> <br><br><br>
+
+  <%= form_for Prediction.new do |f| %>
+    <p>
+    <%= f.label(:team_a, "#{team.split(" ").first}") %><br />
+    <%= f.text_field(:team_a_score) %>
+    </p>
+    <p>
+    <%= f.label(:team_a, "#{team.split(" ").last}") %><br />
+    <%= f.text_field(:team_b_score) %>
+    </p>
+    <p>
+    <%= f.label(:result, "result") %><br />
+    <%= f.text_field(:result) %>
+    </p>
+    <%= f.hidden_field :match_id,  value: m.id %>
+    <p><%= f.submit("Submit") %></p>
+  <% end %>
 <% end %>
