@@ -23,10 +23,14 @@ class User < ActiveRecord::Base
     current_user && current_user.is_admin
   end
   
-  def create_prediction(match, team_a_score, team_b_score, result, points = 0)
-    daily_challenge = match.try(:daily_challenge)
-    daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
-    daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
+  def self.create_prediction(args)
+
+    # daily_challenge = Match.try(:daily_challenge)
+    # puts daily_challenge.inspect
+    # daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
+    # puts daily_challenges_user.inspect
+    # DailyChallengesUser.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
+
   end
   
   def points_by_challenge

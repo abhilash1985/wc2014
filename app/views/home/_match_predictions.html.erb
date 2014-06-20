@@ -1,0 +1,29 @@
+<% dc_today = DailyChallenge.active_today.first %>
+<%= dc_today.name%>
+<div class = "daily_pred">
+  <% Match.by_daily_challenge(dc_today.id).each do |m|%>
+  <%= team = m.match %><br />
+  <%= m.played_on %> <br /><br /><br />
+  <div id = '<%="f#{m.id}"%>' >
+    <%= form_tag home_create_user_prediction_path, method: "post", remote: true do %>
+
+    <%= hidden_field_tag :match_id, m.id %>
+    <%= hidden_field_tag :daily_challenge_id, dc_today.id %>
+    <p>
+      <%= "#{team.split(" ").first}" %><br />
+      <%= text_field_tag(:team_a_score) %>
+    </p>
+    <p>
+      <%= label_tag(:team_b, "#{team.split(" ").last}") %><br />
+      <%= text_field_tag(:team_b_score) %>
+    </p>
+    <p>
+      <%= label_tag(:result, "result") %><br />
+      <%= text_field_tag(:result) %>
+    </p>
+
+    <p><%= submit_tag("Submit") %></p>
+    <% end %>
+  </div>
+  <% end %>
+</div>

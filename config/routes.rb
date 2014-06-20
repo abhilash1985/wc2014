@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :predictions# do 
   #   get 'save_prediction'
   # end
-
+  post '/home/create_user_prediction'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'home/index'
 
