@@ -5,9 +5,10 @@ class HomeController < ApplicationController
   end
   
   def points_table
-  	@daily_challenge = DailyChallenge.previous_day.first
-  	@users = @daily_challenge.users
-  	@matches = @daily_challenge.matches.order('id')
+
+    @daily_challenge = DailyChallenge.today.first
+    @users = @daily_challenge.users
+    @matches = @daily_challenge.matches.order('id')
   end
 
   def create_user_prediction		
@@ -16,9 +17,6 @@ class HomeController < ApplicationController
 			format.js
 		end
 		@id =  "f#{params[:match_id]}"
-
-
-    puts "iiiii #{@id}"
 	end
 
 end
