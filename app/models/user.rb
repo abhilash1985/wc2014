@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   end
   
   def self.create_prediction(args)
+    DailyChallengesUser
 
     # daily_challenge = Match.try(:daily_challenge)
     # puts daily_challenge.inspect

@@ -15,3 +15,22 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+	$(".dropdw").slideUp();
+
+$("#show-drop").hover(function(){
+	$(".dropdw").slideToggle();
+});
+
+$(".match").click(function(){
+	alert("match id =");
+	var m_id = $(this).data('matchid');
+	alert(m_id);
+	$("#m"+m_id).click(function(){
+		$("#f"+m_id).slideToggle();
+	});
+	alert("over");
+});
+});
+

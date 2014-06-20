@@ -1,17 +1,21 @@
 
 <html>
-<!-- <body background = 'http://wallpaperwonder.com/wp-content/uploads/2014/04/World-Cup-FIFA-2014-Wallpaper-HD.jpg';>  -->
-<%# @daily_challenges.each do |daily_challenge| %>
-	<%# daily_challenge.matches.each do |match| %>
-	 <!-- <p>Match : <%#= match.match %></p>
-	 <%# teams = match.match.split('Vs') %>
-	 <p><%#= teams[0].strip %> : Score </p>
-	 <p><%#= teams[1].strip %> : Score </p>
-	 <p>Result :  </p>
- -->	<%# end %>
-<%# end %>
+<body background = 'http://wallpaperwonder.com/wp-content/uploads/2014/04/World-Cup-FIFA-2014-Wallpaper-HD.jpg';> 
+  <div class = "ind-body">
+    <h5> Today's Match </h5>
+    <div class = "ind-inner">
+      <% @daily_challenges.each do |daily_challenge| %>
+      <% daily_challenge.matches.each do |match| %>
+      <div class="match" id = <%="m#{match.id}"%> data-matchid=<%="#{match.id}"%> >
+        <p>Match : <%= match.match %></p>
+      </div>
+    <% end %>
+    <% end %>
+    </div>
+  </div>
 
 
 <%= render "match_predictions" %>
-<!-- </body> -->
+
+</body>
 </html>

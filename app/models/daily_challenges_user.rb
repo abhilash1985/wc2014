@@ -19,4 +19,5 @@ class DailyChallengesUser < ActiveRecord::Base
     prediction.result = result
     prediction.save
   end
+
 end

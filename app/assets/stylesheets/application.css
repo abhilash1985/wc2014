@@ -13,4 +13,13 @@
  *= require_tree .
  *= require_self
  */
+.ind-body {
+	background-color: #fff;
+	opacity:0.8;
+	float:left;
+}
+.pf{
+	background-color: #fff;
+	/*display: none;*/
+}
 
