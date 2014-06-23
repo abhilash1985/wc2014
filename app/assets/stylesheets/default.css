@@ -24,3 +24,8 @@
 table.show-game tr, th, td{
 	padding : 5px;
 }
+
+.daily_pred {
+	width: 600px;
+	padding: 5px;
+}

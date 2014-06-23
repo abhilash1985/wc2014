@@ -23,11 +23,11 @@ $("#show-drop").hover(function(){
 	$(".dropdw").slideToggle();
 });
 
-$(".match").click(function(){
-	var m_id = $(this).data('matchid');
-	$("#m"+m_id).click(function(){
-		$("#f"+m_id).slideToggle();
-	});
-});
+// $(".match").click(function(){
+	// var m_id = $(this).data('matchid');
+	// $("#m"+m_id).click(function(){
+		// $("#match"+m_id).slideToggle();
+	// });
+// });
 });
 

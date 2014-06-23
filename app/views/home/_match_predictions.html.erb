@@ -1,9 +1,9 @@
 <% daily_challenges = DailyChallenge.active_today %>
 <% daily_challenges.each do |dc_today| %>
+<br /><br /><br /><br />
 <div class = "daily_pred">
   <% dc_today.matches.order_by_game_id.each do |m|%>
-  <br /><br /><br />
-  <div class="pf" id='<%="f#{m.id}"%>' >
+  <div class="pf" id='<%="match#{m.game_id}"%>' >
     <%= form_tag home_create_user_prediction_path, method: "post", remote: true do %>
 
     <%= hidden_field_tag :match_id, m.id %>
