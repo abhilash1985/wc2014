@@ -1,3 +1,16 @@
 .margin-top-40{
 	margin-top: 40px !important;
 }
+
+.match-div {
+	/*margin-top: 10px;*/
+	margin-left: 20px;
+	padding: 10px;
+}
+
+.match-result {
+	/*float: left;*/
+	
+	padding : 10px;
+	
+}

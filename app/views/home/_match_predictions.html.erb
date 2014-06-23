@@ -9,20 +9,52 @@
 
     <%= hidden_field_tag :match_id, m.id %>
     <%= hidden_field_tag :daily_challenge_id, dc_today.id %>
-    <p>
-      <%= "#{team.split(" ").first}" %><br />
-      <%= text_field_tag(:team_a_score) %>
-    </p>
-    <p>
-      <%= label_tag(:team_b, "#{team.split(" ").last}") %><br />
-      <%= text_field_tag(:team_b_score) %>
-    </p>
-    <p>
-      <%= label_tag(:result, "result") %><br />
-      <%= text_field_tag(:result) %>
-    </p>
+    
+    <% unless current_user.has_predictions_for_match?(m) %>
+    
+    <div class="match-div">
+        <%= label_tag(:team_b, "#{team.split(" ").first}") %>
+        <%= text_field_tag(:team_a_score) %>
+    </div>
+    
+    <div class="match-div">
+      	<%= label_tag(:team_b, "#{team.split(" ").last}") %>
+      	<%= text_field_tag(:team_b_score) %>
+    </div>
+    
+    <div class="match-div">
+        <%= label_tag(:result) %>
+        <div class="match-result">
+          <%= radio_button_tag(:result, m.match.split("Vs").first.strip) %> <%= m.match.split("Vs").first.strip %> 
+          <!--%= label_tag(:result, m.match.split("Vs").first.strip) %-->
+        </div>
+        <div class="match-result">
+          <%= radio_button_tag(:result, m.match.split("Vs").last.strip) %> <%= m.match.split("Vs").last.strip %>
+          <!_-%= label_tag(:result, m.match.split("Vs").last.strip) %-->
+        </div>
+        <div class="match-result">
+          <%= radio_button_tag(:result, 'Draw') %> Draw <!--%= label_tag(:result, 'Draw') %-->
+        </div>
+    </div>
 
-    <p><%= submit_tag("Submit") %></p>
+    <div class="match-div">
+    	<%= submit_tag("Submit") %>
+    </div>
+    
+    <% else %>
+      <% prediction = current_user.predictions_for_match(m) %>
+    
+      <div class="match-div">
+        <%= label_tag(:team_a, "#{m.match.split('Vs').first.strip} : #{prediction.team_a_score}") %>
+      </div>
+      <div class="match-div">
+        <%= label_tag(:team_b, "#{m.match.split('Vs').last.strip} : #{prediction.team_b_score}") %>
+      </div>
+      <div class="match-div">
+        <%= label_tag(:team_c, "Result : #{prediction.result}") %>
+      </div>
+    <% end %>
+    
     <% end %>
   </div>
   <% end %>
