@@ -26,18 +26,8 @@ class User < ActiveRecord::Base
   def create_prediction(match, team_a_score, team_b_score, result, points = 0)
     # DailyChallengesUser
     daily_challenge = match.try(:daily_challenge)
-  
-    p '------------------'
-    p daily_challenge
-  
     daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
-  
-    puts daily_challenges_user
-    
     prediction = daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
-    
-    p prediction
-    
     # daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
   end
   
@@ -64,7 +54,15 @@ class User < ActiveRecord::Base
   def total_percentage_for_challenge(daily_challenge)
     points = BigDecimal.new total_points_for_challenge(daily_challenge)
     total_points = BigDecimal.new daily_challenge.total_points
-    total_points == 0 ? 0 : (points/total_points).round(2)
+    total_points == 0 ? 0 : (points/total_points * 100).round(2)
+  end
+  
+  def total_score_predictions(daily_challenge)
+    predictions_for(daily_challenge).inject(0){|total, prediction| total += prediction.correct_score_count.to_i }
+  end
+
+  def total_winner_predictions(daily_challenge)
+    predictions_for(daily_challenge).inject(0){|total, prediction| total += prediction.correct_winner_count.to_i }
   end
   
   def total_points

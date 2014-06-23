@@ -12,22 +12,25 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.sortable
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
 
-$(document).ready(function(){
+$(document).ready(function() {
 	$(".dropdw").slideUp();
 
-$("#show-drop").hover(function(){
-	$(".dropdw").slideToggle();
-});
+	$("#show-drop").hover(function() {
+		$(".dropdw").slideToggle();
+	});
 
-// $(".match").click(function(){
+	$("#point-table").tablesorter();
+
+	// $(".match").click(function(){
 	// var m_id = $(this).data('matchid');
 	// $("#m"+m_id).click(function(){
-		// $("#match"+m_id).slideToggle();
+	// $("#match"+m_id).slideToggle();
 	// });
-// });
+	// });
 });
 

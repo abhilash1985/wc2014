@@ -1,14 +1,15 @@
 <%- model_class = Prediction -%>
 <div class="page-header ind-body match-result text-center">
-  <h1><%=t '.title', :default => "#{@daily_challenge.try(:name)} - #{Date.yesterday.to_s(:date_format)} Results" %></h1>
+  <h3><%=t '.title', :default => "#{@daily_challenge.try(:name)} - #{@daily_challenge.end_date.to_date.to_s(:date_format)} Results" %></h3>
 </div>
-<table class="table table-striped ind-body" border="1">
+<table class="table table-striped ind-body table-bordered tablesorter" id="point-table">
   <thead>
     <tr>
-      <th rowspan="3" valign="top"><%= "Sl No." %></th>
       <th rowspan="3" valign="top"><%= "User" %></th>
-      <th rowspan="3" valign="top"><%= "Total Points" %></th>
-      <th rowspan="3" valign="top"><%= "Points in %" %></th>
+      <th rowspan="3" valign="top" class="color-blue"><%= "Total Points" %></th>
+      <th rowspan="3" valign="top" class="color-blue"><%= "Points in %" %></th>
+      <th rowspan="3" valign="top" class="color-blue"><%= "Score Predictions" %></th>
+      <th rowspan="3" valign="top" class="color-blue"><%= "Winner Predictions" %></th>
       <% @matches.each do |match| %>
         <th colspan="2"><%= "Match #{match.game_id}" %></th>
         <th>Winner</th>
@@ -38,10 +39,11 @@
   	<% @users.each do |user| %>
   	 <% count += 1 %>
       <tr>
-      	<td><%= count %></td>
       	<td><%= user.show_name %></td>
-      	<td><%= user.total_points_for_challenge(@daily_challenge) %></td>
-      	<td><%= user.total_percentage_for_challenge(@daily_challenge) %></td>
+      	<td class="color-blue"><%= user.total_points_for_challenge(@daily_challenge) %></td>
+      	<td class="color-blue"><%= user.total_percentage_for_challenge(@daily_challenge) %></td>
+      	<td class="color-blue"><%= user.total_score_predictions(@daily_challenge) %></td>
+      	<td class="color-blue"><%= user.total_winner_predictions(@daily_challenge) %></td>
       	<% user.predictions_for(@daily_challenge).each do |prediction| %>
           <td class="class-bold"><%= prediction.team_a_score %></td>
           <td class="class-bold"><%= prediction.team_b_score %></td>

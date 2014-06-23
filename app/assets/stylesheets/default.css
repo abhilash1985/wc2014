@@ -37,3 +37,7 @@ table.show-game tr, th, td{
 .class-bold {
 	font-weight: bold;
 }
+
+.color-blue {
+	color: #0000FF;
+}

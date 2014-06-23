@@ -57,5 +57,4 @@ class Prediction < ActiveRecord::Base
   def correct_winner_count
     self.compare('result') ? 1 : 0
   end
-  
 end
