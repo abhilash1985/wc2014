@@ -33,3 +33,7 @@ table.show-game tr, th, td{
 	width: 600px;
 	padding: 5px;
 }
+
+.class-bold {
+	font-weight: bold;
+}

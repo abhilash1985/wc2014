@@ -24,9 +24,9 @@
     </tr>
     <tr>
       <% @matches.each do |match| %>
-        <th><%= match.team_a_score %></th>
-        <th><%= match.team_b_score %></th>
-        <th><%= match.result %></th>
+        <th class="class-bold"><%= match.team_a_score %></th>
+        <th class="class-bold"><%= match.team_b_score %></th>
+        <th class="class-bold"><%= match.result %></th>
         <th><%= match.goal_difference %></th>
         <th></th>
       <% end %>
@@ -39,9 +39,9 @@
       	<td><%= user.total_points_for_challenge(@daily_challenge) %></td>
       	<td><%= user.total_percentage_for_challenge(@daily_challenge) %></td>
       	<% user.predictions_for(@daily_challenge).each do |prediction| %>
-          <td><%= prediction.team_a_score %></td>
-          <td><%= prediction.team_b_score %></td>
-          <td><%= prediction.result %></td>
+          <td class="class-bold"><%= prediction.team_a_score %></td>
+          <td class="class-bold"><%= prediction.team_b_score %></td>
+          <td class="class-bold"><%= prediction.result %></td>
           <td><%= prediction.goal_difference %></td>
           <td><%= prediction.calculate_points %></td>
         <% end %>
