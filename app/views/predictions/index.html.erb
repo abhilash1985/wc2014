@@ -2,7 +2,7 @@
 <div class="page-header ind-body match-result text-center">
   <h3><%=t '.title', :default => "#{@daily_challenge.try(:name)} - #{Date.today.to_s(:date_format)}" %></h3>
 </div>
-<table class="table table-striped ind-body" border="1">
+<table class="table table-striped table-bordered ind-body">
   <thead>
     <tr>
       <th rowspan="3" valign="top"><%= "Sl No." %></th>
