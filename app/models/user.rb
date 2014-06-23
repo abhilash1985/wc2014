@@ -12,11 +12,15 @@ class User < ActiveRecord::Base
   has_many :daily_challenges, through: :daily_challenges_users
          
   def show_name
-    full_name.blank? ? email : full_name
+    full_name.blank? ? show_email : full_name
   end
   
   def full_name
     "#{first_name} #{last_name}"
+  end
+  
+  def show_email
+    email.split('@')[0]
   end
   
   def current_admin

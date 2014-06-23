@@ -1,6 +1,7 @@
 <body> 
   <div class = "ind-body">
-    <h5 class="match-result text-center">Today's Matches</h5>
+  	<%= render '/home/previous_day_winner' %>
+    <h5 class="padding-5 text-center">Today's Matches</h5>
     <div class = "ind-inner match-div">
       <% @daily_challenges.each do |daily_challenge| %>
       <table class="show-game">

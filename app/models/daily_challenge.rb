@@ -9,6 +9,7 @@ class DailyChallenge < ActiveRecord::Base
   scope :today, lambda { where(:end_date => Date.today.beginning_of_day..Date.today.end_of_day ) }
   scope :previous_day, lambda { where(:end_date => Date.yesterday.beginning_of_day..Date.yesterday.end_of_day ) }
   scope :by_name, lambda { |name| where(name: name) }
+  scope :last_challenge, lambda { where("end_date <= ?", Date.today ) }
   
   validates :name, :start_date, :end_date, :presence => true
   validates :name, :uniqueness => true
@@ -37,5 +38,17 @@ class DailyChallenge < ActiveRecord::Base
   
   def total_points
     matches.inject(0){ |a, v| a += v.points.to_i }
+  end
+  
+  def has_predictions?
+    not predictions.blank?
+  end
+  
+  def winner_array
+    total_points_by_users.sort_by{|k, v| v.to_i <=> v.to_i }[0]
+  end
+  
+  def total_points_by_users
+    users.inject({}){|hash, user| hash[user.show_name] = user.total_points_for_challenge(self); hash }
   end
 end
