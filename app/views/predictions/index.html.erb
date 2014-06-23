@@ -1,6 +1,6 @@
 <%- model_class = Prediction -%>
 <div class="page-header ind-body match-result text-center">
-  <h1><%=t '.title', :default => "#{@daily_challenge.try(:name)} - #{Date.yesterday.to_s(:date_format)}" %></h1>
+  <h1><%=t '.title', :default => "#{@daily_challenge.try(:name)} - #{Date.today.to_s(:date_format)}" %></h1>
 </div>
 <table class="table table-striped ind-body" border="1">
   <thead>
