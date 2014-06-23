@@ -1,21 +1,26 @@
-
-<html>
-<body background = 'http://wallpaperwonder.com/wp-content/uploads/2014/04/World-Cup-FIFA-2014-Wallpaper-HD.jpg';> 
+<body background = '/assets/World-Cup-FIFA-2014-Wallpaper-HD.jpg'> 
   <div class = "ind-body">
-    <h5> Today's Match </h5>
-    <div class = "ind-inner">
+    <h5 class="match-result text-center">Today's Matches</h5>
+    <div class = "ind-inner match-div">
       <% @daily_challenges.each do |daily_challenge| %>
-      <% daily_challenge.matches.each do |match| %>
-      <div class="match" id = <%="m#{match.id}"%> data-matchid=<%="#{match.id}"%> >
-        <p>Match : <%= match.match %></p>
-      </div>
-    <% end %>
+      <table class="show-game">
+      	<tr>
+      		<td colspan="3"><h4><%= daily_challenge.name %></h4></td>
+      	</tr>
+      <% daily_challenge.matches.order_by_game_id.each do |match| %>
+        <tr class='match' id=<%= "m#{match.id}"%> data-matchid=<%= "#{match.id}" %> >
+      		<td><%= link_to "Game #{match.game_id}", "#f#{match.game_id}" %></td>
+      		<td><%= link_to "#{match.match}", "#f#{match.game_id}" %><%=  %></td>
+      		<td><%= match.played_on.to_s(:date_format) %></td>
+      	</tr>
+      <% end %>
+      </table>
     <% end %>
     </div>
   </div>
 
-<br /><br /><br /><br /><br /><br /><br /><br /><br />
-<%= render "match_predictions" %>
-
+<!-- <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /> -->
+<div class="show-match">
+  <%= render "match_predictions" %>
+</div>
 </body>
-</html>

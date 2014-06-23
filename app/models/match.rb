@@ -1,12 +1,13 @@
 class Match < ActiveRecord::Base
   belongs_to :daily_challenge
-  has_many :predictions
+  has_many :predictions, :dependent => :destroy
   # has_many :users, :through => :predictions
   
   after_save :update_predictions
   
   include SharedMethods
   
+  scope :order_by_game_id, lambda { order(:game_id) }
   scope :by_daily_challenge, lambda { |dailiy_challenge_id| where(:daily_challenge_id => dailiy_challenge_id) }
   scope :by_game_id, lambda { |game_id| where(:game_id => game_id) }
   

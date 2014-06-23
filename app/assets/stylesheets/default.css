@@ -10,7 +10,17 @@
 
 .match-result {
 	/*float: left;*/
-	
 	padding : 10px;
-	
+}
+
+.text-center {
+	text-align: center;
+}
+
+.show-match {
+	margin-top: 190px;
+}
+
+table.show-game tr, th, td{
+	padding : 5px;
 }

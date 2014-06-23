@@ -1,6 +1,6 @@
 class DailyChallenge < ActiveRecord::Base
-  has_many :matches
-  has_many :daily_challenges_users
+  has_many :matches, :dependent => :destroy
+  has_many :daily_challenges_users, :dependent => :destroy
   has_many :users, through: :daily_challenges_users
   has_many :predictions, through: :daily_challenges_users
   

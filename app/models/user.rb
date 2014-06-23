@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
    
   attr_accessor :current_password
          
-  has_many :daily_challenges_users
+  has_many :daily_challenges_users, :dependent => :destroy
   has_many :predictions, through: :daily_challenges_users
   has_many :matches, :through => :predictions
   has_many :daily_challenges, through: :daily_challenges_users
@@ -23,15 +23,22 @@ class User < ActiveRecord::Base
     current_user && current_user.is_admin
   end
   
-  def self.create_prediction(args)
-    DailyChallengesUser
-
-    # daily_challenge = Match.try(:daily_challenge)
-    # puts daily_challenge.inspect
-    # daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
-    # puts daily_challenges_user.inspect
-    # DailyChallengesUser.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
-
+  def create_prediction(match, team_a_score, team_b_score, result, points = 0)
+    # DailyChallengesUser
+    daily_challenge = match.try(:daily_challenge)
+  
+    p '------------------'
+    p daily_challenge
+  
+    daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
+  
+    puts daily_challenges_user
+    
+    prediction = daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
+    
+    p prediction
+    
+    # daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
   end
   
   def points_by_challenge

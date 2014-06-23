@@ -24,13 +24,10 @@ $("#show-drop").hover(function(){
 });
 
 $(".match").click(function(){
-	alert("match id =");
 	var m_id = $(this).data('matchid');
-	alert(m_id);
 	$("#m"+m_id).click(function(){
 		$("#f"+m_id).slideToggle();
 	});
-	alert("over");
 });
 });
 
