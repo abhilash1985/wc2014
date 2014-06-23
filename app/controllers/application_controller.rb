@@ -13,4 +13,8 @@ class ApplicationController < ActionController::Base
       redirect_to(request.referrer || root_path)
     end
   end
+  
+  def can_see_predictions?(end_time, time_zone)
+    end_time.in_time_zone(time_zone) < Time.now.in_time_zone(time_zone)
+  end
 end

@@ -5,8 +5,8 @@ class PredictionsController < ApplicationController
   # GET /predictions.json
   def index
     @daily_challenge = DailyChallenge.today.first # DailyChallenge.today.first
-    @end_time = Date.today.to_s + ' 18:00'
-    @users = (@end_time.to_time < Time.now.in_time_zone("Asia/Calcutta")) ? @daily_challenge.users : [current_user]
+    @end_time = Date.today.to_s + ' 17:30'
+    @users = can_see_predictions?(@end_time, "Asia/Calcutta") ? @daily_challenge.users : [current_user]
     @matches = @daily_challenge.matches.order('id')
   end
 
