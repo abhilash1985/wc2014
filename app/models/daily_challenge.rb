@@ -45,7 +45,7 @@ class DailyChallenge < ActiveRecord::Base
   end
   
   def winner_array
-    total_points_by_users.sort_by{|k, v| v.to_i <=> v.to_i }[0]
+    total_points_by_users.sort_by{|k, v| v.to_i }.reverse[0]
   end
   
   def total_points_by_users
