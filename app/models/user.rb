@@ -61,7 +61,7 @@ class User < ActiveRecord::Base
   
   def total_percentage_for_challenges(challenges)
     points = BigDecimal.new total_points_for_challenges(challenges)
-    total_points = BigDecimal.new challenges.inject(0){ |a,v|  a += v.total_points }
+    total_points = BigDecimal.new challenges.by_id(daily_challenges.map(&:id)).inject(0){ |a,v|  a += v.total_points }
     total_points == 0 ? 0 : (points/total_points * 100).round(2)
   end
   
