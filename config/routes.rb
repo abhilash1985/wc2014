@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   
   match '/points_table' => 'home#points_table', :as => 'points_table', :via => :get
   post '/change_password' => 'home#change_password',  as: :change_password
+  get '/weekly_points_table' => 'home#weekly_points_table', :as => 'weekly_points_table'
   
   
   # The priority is based upon order of creation: first created -> highest priority.

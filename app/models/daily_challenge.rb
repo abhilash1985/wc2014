@@ -7,8 +7,9 @@ class DailyChallenge < ActiveRecord::Base
   scope :active, lambda { where("end_date >= ?", Date.today) }
   scope :active_today, lambda { where("'#{Date.today.to_s} 09:00:00' between start_date and end_date" ) }
   scope :today, lambda { where(:end_date => Date.today.beginning_of_day..Date.today.end_of_day ) }
-  scope :previous_day, lambda { where(:end_date => Date.yesterday.beginning_of_day..Date.yesterday.end_of_day ) }
+  scope :weekly, lambda { |date = Date.today| where(:end_date => date.beginning_of_week.beginning_of_day..date.end_of_week.end_of_day).order(:id) }
   scope :by_name, lambda { |name| where(name: name) }
+  scope :by_id, lambda { |id| where(id: id) }
   scope :last_challenge, lambda { where("end_date <= ?", Date.today ) }
   
   validates :name, :start_date, :end_date, :presence => true

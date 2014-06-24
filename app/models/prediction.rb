@@ -3,8 +3,7 @@ class Prediction < ActiveRecord::Base
   belongs_to :daily_challenges_user
   belongs_to :match
   
-
-  before_save :save_points
+  before_save :save_points, :save_result 
   
   include SharedMethods
   
@@ -20,6 +19,10 @@ class Prediction < ActiveRecord::Base
 
   def save_points
     self.points = calculate_points
+  end
+  
+  def save_result
+    self.result = calculate_result
   end
   
   def calculate_points
@@ -44,6 +47,17 @@ class Prediction < ActiveRecord::Base
   
   def winner
     self.compare('result') ? 2 : 0
+  end
+  
+  def calculate_result
+    teams = self.match.match.split('Vs')
+    if self.team_a_score == self.team_b_score
+      'Draw'
+    elsif self.team_a_score > self.team_b_score
+      teams[0].strip
+    elsif self.team_a_score < self.team_b_score
+      teams[1].strip
+    end 
   end
   
   def correct_score_count

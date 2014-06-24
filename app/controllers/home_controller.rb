@@ -10,6 +10,11 @@ class HomeController < ApplicationController
     @users = @daily_challenge.users
     @matches = @daily_challenge.matches.order('id')
   end
+  
+  def weekly_points_table
+    @daily_challenges = DailyChallenge.weekly
+    @users = User.all
+  end
 
   def create_user_prediction		
     match = Match.find params[:match_id]

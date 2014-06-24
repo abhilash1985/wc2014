@@ -1,0 +1,32 @@
+<%- model_class = Prediction -%>
+<div class="page-header ind-body match-result text-center">
+  <h3><%=t '.title', :default => "Weekly Point Table - #{weekly_period(@daily_challenges)}" %></h3>
+</div>
+<table class="table table-striped ind-body table-bordered tablesorter text-center" id="point-table">
+  <thead>
+    <tr>
+      <th><%= "User" %></th>
+      <th class="color-blue"><%= "Played" %></th>
+      <th class="color-blue"><%= "Points" %></th>
+      <th class="color-blue"><%= "%" %></th>
+      <th class="color-blue"><%= "SR (Points/Game)" %></th>
+      <th class="color-blue"><%= "Score Predictions" %></th>
+      <th class="color-blue"><%= "Winner Predictions" %></th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% count = 0 %>
+  	<% @users.each do |user| %>
+  	 <% count += 1 %>
+      <tr>
+      	<td><%= user.show_name %></td>
+      	<td class="color-blue"><%= user.total_played_for_challenges(@daily_challenges) %></td>
+      	<td class="color-blue"><%= user.total_points_for_challenges(@daily_challenges) %></td>
+      	<td class="color-blue"><%= user.total_percentage_for_challenges(@daily_challenges) %></td>
+      	<td class="color-blue"><%= user.total_strike_rate_for_challenges(@daily_challenges) %></td>
+      	<td class="color-blue"><%= user.total_score_predictions_for_challenges(@daily_challenges) %></td>
+      	<td class="color-blue"><%= user.total_winner_predictions_for_challenges(@daily_challenges) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

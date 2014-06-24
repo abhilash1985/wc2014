@@ -32,23 +32,51 @@ class User < ActiveRecord::Base
     daily_challenge = match.try(:daily_challenge)
     daily_challenges_user = self.create_daily_challenge(daily_challenge) if daily_challenge
     prediction = daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
-    # daily_challenges_user.create_prediction(match, team_a_score, team_b_score, result) if match && daily_challenges_user
   end
   
-  def points_by_challenge
-    daily_challenges.inject({}){ |hash, daily_challenge| 
-      hash[daily_challenge.try(:id)] = points_by_matches(daily_challenge).values.sum rescue 0; 
-      hash 
-    }
-  end
-  
-  def points_by_matches(daily_challenge = nil)
-    matches = self.matches.by_scoped(:daily_challenge_id, daily_challenge)
-    matches.inject({}){ |hash, match| hash[match.try(:id)] = total_points_for_match(match); hash }
-  end
+  # def points_by_challenge
+    # daily_challenges.inject({}){ |hash, daily_challenge| 
+      # hash[daily_challenge.try(:id)] = points_by_matches(daily_challenge).values.sum rescue 0; 
+      # hash 
+    # }
+  # end
+#   
+  # def points_by_matches(daily_challenge = nil)
+    # matches = self.matches.by_scoped(:daily_challenge_id, daily_challenge)
+    # matches.inject({}){ |hash, match| hash[match.try(:id)] = total_points_for_match(match); hash }
+  # end
   
   def total_points_for_match(match)
     # predictions_for(daily_challenge)
+  end
+  
+  # Weekly Point Table
+  def total_played_for_challenges(challenges)
+    challenges.by_id(daily_challenges.map(&:id)).inject(0){|total, challenge| total += challenge.matches.count }
+  end
+  
+  def total_points_for_challenges(challenges)
+    challenges.inject(0){ |total, daily_challenge| total += total_points_for_challenge(daily_challenge).to_i }
+  end
+  
+  def total_percentage_for_challenges(challenges)
+    points = BigDecimal.new total_points_for_challenges(challenges)
+    total_points = BigDecimal.new challenges.inject(0){ |a,v|  a += v.total_points }
+    total_points == 0 ? 0 : (points/total_points * 100).round(2)
+  end
+  
+  def total_strike_rate_for_challenges(challenges)
+    points = BigDecimal.new total_points_for_challenges(challenges)
+    game_played = BigDecimal.new total_played_for_challenges(challenges)
+    game_played == 0 ? 0 : (points/game_played).round(2)
+  end
+  
+  def total_score_predictions_for_challenges(challenges)
+    challenges.inject(0){ |total, daily_challenge| total += total_score_predictions(daily_challenge).to_i }
+  end
+  
+  def total_winner_predictions_for_challenges(challenges)
+    challenges.inject(0){ |total, daily_challenge| total += total_winner_predictions(daily_challenge).to_i }
   end
   
   def total_points_for_challenge(daily_challenge)
