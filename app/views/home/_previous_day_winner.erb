@@ -2,4 +2,5 @@
   <h5 class="padding-5 text-center">
   	<%= "#{last_challenge.name} winner is #{last_challenge.winner_array[0].strip.upcase} with #{last_challenge.winner_array[1]} points"  %>
   </h5>
+  <h6 class="text-center"><%= link_to 'Click Here', points_table_path %> to see more...</h6>
 <% end %>
