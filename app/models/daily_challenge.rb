@@ -11,6 +11,7 @@ class DailyChallenge < ActiveRecord::Base
   scope :by_name, lambda { |name| where(name: name) }
   scope :by_id, lambda { |id| where(id: id) }
   scope :last_challenge, lambda { where("end_date <= ?", Date.today ) }
+  scope :not_today, lambda { where.not(:id => DailyChallenge.active_today) }
   
   validates :name, :start_date, :end_date, :presence => true
   validates :name, :uniqueness => true

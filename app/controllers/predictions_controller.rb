@@ -6,7 +6,7 @@ class PredictionsController < ApplicationController
   def index
     @daily_challenge = DailyChallenge.today.first # DailyChallenge.today.first
     @end_time = Date.today.to_s + ' 17:30'
-    @users = can_see_predictions?(@end_time, "Asia/Calcutta") ? @daily_challenge.users : [current_user]
+    @users = current_user.has_predictions_for_challenge?(@daily_challenge) ? @daily_challenge.users : [current_user]
     @matches = @daily_challenge.matches.order('id')
   end
 

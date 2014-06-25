@@ -134,6 +134,14 @@ class User < ActiveRecord::Base
     predictions.where("daily_challenges_users.daily_challenge_id" => daily_challenge).order('match_id')
   end
   
+  def has_predictions_for_challenge?(challenge)
+    not predictions_for_challenge(challenge).blank?
+  end
+  
+  def predictions_for_challenge(challenge)
+    daily_challenges.by_id(challenge.try(:id)).first
+  end
+  
   def has_predictions_for_match?(match)
     not predictions_for_match(match).blank?
   end

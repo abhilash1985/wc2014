@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
   
   def weekly_points_table
-    @daily_challenges = DailyChallenge.weekly
+    @daily_challenges = DailyChallenge.weekly.not_today
     @users = User.all
   end
 
