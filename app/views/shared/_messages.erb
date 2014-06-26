@@ -1,7 +1,7 @@
 <% message_class = object.errors.empty? ? 'success' : 'danger' %>
 <% unless flash[:notice].nil? %>
 <div class="row">
-	  <div class="alert alert-<%= message_class %> span6">
+	  <div class="alert alert-<%= message_class %> span5">
 			<div><%= raw flash[:notice] %></div>
 			<% if object.errors.any? %>
 			    <ul>
