@@ -1,6 +1,7 @@
 <% daily_challenges = DailyChallenge.active_today %>
-<% daily_challenges.each do |dc_today| %>
 <br /><br /><br /><br />
+<% daily_challenges.each do |dc_today| %>
+
 <div class = "daily_pred">
   <% dc_today.matches.order_by_game_id.each do |m|%>
   <div class="pf" id='<%="match#{m.game_id}"%>' >

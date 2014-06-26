@@ -15,10 +15,20 @@
  */
 .ind-body {
 	background-color: #fff;
-	opacity:0.8;
-	float:left;
+	opacity: 0.8;
+	float: left;
+	border: 1px solid;
+    border-radius: 25px;
 }
 .pf{
+	float: left;
+	width: 300px;
 	background-color: #fff;
+	opacity: 0.9;
+    margin-left: 20px;
+    margin-top: 20px;
+    border: 1px solid;
+    border-radius: 25px;
+    padding: 10px;
 	/*display: none;*/
 }

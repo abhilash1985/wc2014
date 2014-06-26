@@ -18,11 +18,9 @@
 //= require_tree .
 
 $(document).ready(function() {
-	$(".dropdw").slideUp();
-
-	$("#show-drop").hover(function() {
-		$(".dropdw").slideToggle();
-	});
+	// $("#show-drop").hover(function() {
+		// $(".dropdw").slideToggle();
+	// });
 
 	$("#point-table").tablesorter();
 
