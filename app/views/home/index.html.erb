@@ -10,7 +10,7 @@
       	</tr>
       <% daily_challenge.matches.order_by_game_id.each do |match| %>
         <tr class='match' id=<%= "m#{match.id}"%> data-matchid=<%= "#{match.id}" %> >
-      		<td><%= link_to "Game #{match.game_id}", "#f#{match.game_id}" %></td>
+      		<td><%= link_to "Game #{match.game_id}", "#match#{match.game_id}" %></td>
       		<td><%= link_to "#{match.match}", "#match#{match.game_id}" %><%=  %></td>
       		<td><%= match.played_on.to_s(:date_format) %></td>
       	</tr>
