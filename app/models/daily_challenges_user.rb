@@ -20,16 +20,13 @@ class DailyChallengesUser < ActiveRecord::Base
     prediction.save
   end
   
-  def create_prediction(match, team_a_score, team_b_score, result)
+  def create_prediction(match, team_a_score, team_b_score, options)
     prediction = self.predictions.where(match_id: match).first_or_initialize
     # prediction.match_id = match
     prediction.team_a_score = team_a_score.to_i
     prediction.team_b_score = team_b_score.to_i
-    prediction.result = result
+    prediction.options = options
     prediction.save
-    
-    p prediction
-    
     prediction
   end
 

@@ -4,10 +4,11 @@ class Match < ActiveRecord::Base
   # has_many :users, :through => :predictions
   
   after_save :update_predictions
+  store_accessor :options, :goal_time
   
   include SharedMethods
   
-  scope :order_by_game_id, lambda { order(:game_id) }
+  scope :order_by_game_id, -> { order(:game_id) }
   scope :by_daily_challenge, lambda { |dailiy_challenge_id| where(:daily_challenge_id => dailiy_challenge_id) }
   scope :by_game_id, lambda { |game_id| where(:game_id => game_id) }
   
@@ -20,5 +21,13 @@ class Match < ActiveRecord::Base
   
   def total_points_for(user)
     self.predictions.by_user(user).sum(:calculate_points)
+  end
+  
+  def group?
+    stage == 'group'
+  end
+  
+  def knockout?
+    stage == 'knockout'
   end
 end

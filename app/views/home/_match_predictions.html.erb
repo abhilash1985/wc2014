@@ -6,44 +6,16 @@
   <% dc_today.matches.order_by_game_id.each do |m|%>
   <div class="pf" id='<%="match#{m.game_id}"%>' >
   	<%= render '/shared/messages', :object => @prediction if @prediction.match == m %>
-    <%= form_tag home_create_user_prediction_path, method: "post", remote: true do %>
+    <%= form_tag home_create_user_prediction_path, method: "post", class: 'form-horizontal', remote: true do %>
 
     <%= hidden_field_tag :match_id, m.id %>
     <%= hidden_field_tag :daily_challenge_id, dc_today.id %>
     
-    <div class="match-div text-center">
+    <div class="form-group match-div text-center">
       <h5><%= team = m.match %></h5>
     </div>
     
-    <% unless current_user.has_predictions_for_match?(m) %>
-    
-    <div class="match-div">
-        <%= label_tag(:team_b, "#{team.split(" ").first}") %>
-        <%= text_field_tag(:team_a_score, '', class: "input-small") %>
-    </div>
-    
-    <div class="match-div">
-      	<%= label_tag(:team_b, "#{team.split(" ").last}") %>
-      	<%= text_field_tag(:team_b_score, '', class: "input-small") %>
-    </div>
-    
-    <div class="match-div">
-    	<%= submit_tag("Submit") %>
-    </div>
-    
-    <% else %>
-      <% prediction = current_user.predictions_for_match(m) %>
-    
-      <div class="match-div">
-        <%= label_tag(:team_a, "#{m.match.split('Vs').first.strip} : #{prediction.team_a_score}") %>
-      </div>
-      <div class="match-div">
-        <%= label_tag(:team_b, "#{m.match.split('Vs').last.strip} : #{prediction.team_b_score}") %>
-      </div>
-      <div class="match-div">
-        <%= label_tag(:team_c, "Result : #{prediction.result}") %>
-      </div>
-    <% end %>
+    <%= render '/home/football/group_stage', :m => m, :current_user => current_user, :team => team %>
     
     <% end %>
   </div>

@@ -4,6 +4,7 @@ class Prediction < ActiveRecord::Base
   belongs_to :match
   
   before_save :save_points, :save_result 
+  store_accessor :options, :goal_time
   
   include SharedMethods
   

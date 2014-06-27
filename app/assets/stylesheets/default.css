@@ -46,3 +46,11 @@ table.show-game tr, th, td{
 .color-blue {
 	color: #0000FF;
 }
+
+.float-left {
+	float: left;
+}
+
+.inline {
+	display: inline-block !important;
+}

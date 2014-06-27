@@ -18,7 +18,11 @@ class HomeController < ApplicationController
 
   def create_user_prediction		
     match = Match.find params[:match_id]
-    @prediction = current_user.create_prediction(match, params[:team_a_score], params[:team_b_score], params[:result])
+    options = params
+    ['commit', 'action', 'utf8', 'controller'].each { |col|
+      options.delete(col)
+    }
+    @prediction = current_user.create_prediction(match, params[:team_a_score], params[:team_b_score], options)
   	# DailyChallengesUser.create_prediction(params[:match_id],current_user.id, params[:daily_challenge_id], params[:team_a_score], params[:team_b_score], params[:result])
 		@id = "f#{params[:match_id]}"
 		
