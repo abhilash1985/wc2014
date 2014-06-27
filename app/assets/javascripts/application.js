@@ -16,6 +16,7 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+//= require dataTables/jquery.dataTables
 
 $(document).ready(function() {
 	// $("#show-drop").hover(function() {

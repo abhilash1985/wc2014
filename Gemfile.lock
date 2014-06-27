@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/rweng/jquery-datatables-rails.git
+  revision: f7f121b6c31eb5f92a1596d79936c11cff89ade7
+  specs:
+    jquery-datatables-rails (1.12.2)
+      jquery-rails
+      sass-rails
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -186,6 +194,7 @@ DEPENDENCIES
   devise
   fastercsv
   jbuilder (~> 2.0)
+  jquery-datatables-rails!
   jquery-rails
   pg
   pundit
