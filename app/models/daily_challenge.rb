@@ -27,11 +27,10 @@ class DailyChallenge < ActiveRecord::Base
     end
   end
   
-  def create_match(game_id, match_name, played_on, team_a_score, team_b_score, result)
+  def create_match(game_id, match_name, played_on, team_a_score, team_b_score, result, stage, options)
     match = self.matches.where(game_id: game_id).first_or_initialize
     match.match = match_name
-    match.points = 5
-    ['game_id', 'played_on', 'team_a_score', 'team_b_score', 'result'].each { |column|
+    ['game_id', 'played_on', 'team_a_score', 'team_b_score', 'result', 'stage', 'options'].each { |column|
       match.send("#{column}=", eval(column))
     }
     match.save!
@@ -47,10 +46,29 @@ class DailyChallenge < ActiveRecord::Base
   end
   
   def winner_array
-    total_points_by_users.sort_by{|k, v| v.to_i }.reverse[0]
+    winner_hash.sort_by{|k, v| k }.reverse[0] rescue ['', []]
+  end
+  
+  def winner_hash
+    total_points_by_users.sort_by{|k, v| v.to_i }.inject({}){ |hash, value| 
+      hash[value[1]] = hash[value[1]].blank? ? [value[0]] : hash[value[1]].push(value[0])  
+      hash 
+    }
   end
   
   def total_points_by_users
     users.inject({}){|hash, user| hash[user.show_name] = user.total_points_for_challenge(self); hash }
+  end
+  
+  def winner_text
+    "#{name} winner is #{winner_array[1].join(',').strip.upcase} with #{winner_array[0]} points#{winner_last_text}"
+  end
+  
+  def multiple_winners?
+    winner_array[1].count > 1
+  end
+  
+  def winner_last_text
+    " each" if multiple_winners?
   end
 end

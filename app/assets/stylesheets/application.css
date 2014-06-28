@@ -36,6 +36,7 @@
 }
 .discussions {
 	background-color: #fff;
+	margin-top: 10px;
 	opacity: 1;
 	float: left;
 	border: 1px solid;

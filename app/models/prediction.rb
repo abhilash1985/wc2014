@@ -5,6 +5,9 @@ class Prediction < ActiveRecord::Base
   
   before_save :save_points, :save_result 
   store_accessor :options, :goal_time
+  # store_accessor :options, :ft_score1, :ft_score2, :ft_result, 
+                           # :et_score1, :et_score2, :et_result, 
+                           # :so_score1, :so_score2, :so_result
   
   include SharedMethods
   
@@ -27,7 +30,7 @@ class Prediction < ActiveRecord::Base
   end
   
   def calculate_points
-    goals_for + goals_against + goal_diff_points + winner
+    goals_for + goals_against + goal_diff_points + winner + options_points.to_i
   end
   
   def goals_for
@@ -59,6 +62,12 @@ class Prediction < ActiveRecord::Base
     elsif self.team_a_score < self.team_b_score
       teams[1].strip
     end 
+  end
+  
+  def options_points
+    if !self.match.options.blank? && !self.options.blank?
+      (self.options['goal_time'] == self.match.options['goal_time']) ? 2 : 0
+    end
   end
   
   def correct_score_count

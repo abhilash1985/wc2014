@@ -27,7 +27,7 @@ namespace :import do
   desc "Import Data for all matches"
   task :matches => :environment do |t, args|
     begin
-      file = "db/data/matches.xls"
+      file = Rails.env.production? ? "db/data/matches.xls" : "db/data/sample_matches.xls" 
       p "*************************************************************************************************************"
       p "Importing File : #{file}"
       Spreadsheet.open(file) do |sheet|
@@ -36,7 +36,7 @@ namespace :import do
           unless row[0].blank?
             daily_challenge = DailyChallenge.create_daily_challenge(row[1], row[2], row[3])
             p "Created Challenge : #{row[1]}"
-            match = daily_challenge.create_match(row[0], row[4], row[5], row[6], row[7], row[8])
+            match = daily_challenge.create_match(row[0], row[4], row[5], row[6], row[7], row[8], row[9], row[10])
             p "Created Match : #{row[0]} : #{row[4]}"
           end
         end
