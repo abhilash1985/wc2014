@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
   end
   
   def has_predictions_for_challenge?(challenge)
-    predictions_for_challenge(challenge).count == challenge.matches.count 
+    predictions_for(challenge).count == challenge.matches.count 
   end
   
   def predictions_for_challenge(challenge)
