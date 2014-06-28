@@ -61,11 +61,15 @@ class DailyChallenge < ActiveRecord::Base
   end
   
   def winner_text
-    "#{name} winner is #{winner_array[1].join(',').strip.upcase} with #{winner_array[0]} points#{winner_last_text}"
+    "#{name} #{winner_first_text} #{winner_array[1].join(',').strip.upcase} with #{winner_array[0]} points#{winner_last_text}"
   end
   
   def multiple_winners?
     winner_array[1].count > 1
+  end
+  
+  def winner_first_text
+    multiple_winners? ? "winners are" : "winner is" 
   end
   
   def winner_last_text
