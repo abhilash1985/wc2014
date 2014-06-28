@@ -7,6 +7,43 @@ module SharedMethods
     self.try(:team_a_score).to_i - self.try(:team_b_score).to_i
   end
   
+  def save_options
+    self.options = self.initialize_options
+  end
+  
+  def initialize_options
+    match = self.respond_to?(:final_stage?) ? self : self.match
+    if match.final_stage?
+      ['ft', 'et', 'so'].each { |name|
+        options["#{name}_result"] = calculate_option_result(match, options, name)
+      }
+    end
+    options
+  end
+  
+  def calculate_option_result(match, options, name)
+    teams = match.match.split('Vs')
+    team_a_score = options["#{name}_score1"].to_i
+    team_b_score = options["#{name}_score2"].to_i
+    if team_a_score == team_b_score
+      calculate_draw_result(options, name)
+    elsif team_a_score > team_b_score
+      teams[0].strip
+    elsif team_a_score < team_b_score
+      teams[1].strip
+    end 
+  end
+  
+  def calculate_draw_result(options, name)
+    case name
+    when 'et'
+      options['ft_result'] == 'Draw' ? 'Draw' : '-' 
+    when 'so'
+      options['et_result'] == 'Draw' ? 'Draw' : '-' 
+    else
+      'Draw'
+    end
+  end
 end
 
 module ClassMethods

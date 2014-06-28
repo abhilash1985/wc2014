@@ -3,13 +3,13 @@ class Match < ActiveRecord::Base
   has_many :predictions, :dependent => :destroy
   # has_many :users, :through => :predictions
   
-  before_save :save_points, :save_result 
+  before_save :save_points, :save_result, :save_options 
   
   after_save :update_predictions
   store_accessor :options, :goal_time
-  # store_accessor :options, :ft_score1, :ft_score2, :ft_result, 
-                           # :et_score1, :et_score2, :et_result, 
-                           # :so_score1, :so_score2, :so_result
+  store_accessor :options, :ft_score1, :ft_score2, :ft_result, 
+                           :et_score1, :et_score2, :et_result, 
+                           :so_score1, :so_score2, :so_result
   
   include SharedMethods
   
@@ -34,6 +34,10 @@ class Match < ActiveRecord::Base
   
   def knockout?
     stage == 'knockout'
+  end
+  
+  def final_stage?
+    ['group', 'knockout'].exclude?(stage)
   end
   
   def save_points

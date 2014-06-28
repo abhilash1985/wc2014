@@ -12,10 +12,12 @@
     <%= hidden_field_tag :daily_challenge_id, dc_today.id %>
     
     <div class="form-group match-div text-center">
-      <h5><%= team = m.match %></h5>
+      <h5><%= m.match %></h5>
     </div>
     
-    <%= render '/home/football/group_stage', :m => m, :current_user => current_user, :team => team %>
+     <div  class="float-left" id="<%= "match_#{m.game_id}" %>">
+       <%= render "/home/football/#{match_stage(m)}", :m => m, :current_user => current_user, :team => m.match %>
+     </div>
     
     <% end %>
   </div>
