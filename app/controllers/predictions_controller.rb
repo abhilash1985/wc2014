@@ -7,7 +7,7 @@ class PredictionsController < ApplicationController
     @daily_challenge = DailyChallenge.active_today.first # DailyChallenge.today.first
     @end_time = Date.today.to_s + ' 17:30'
     @users = current_user.has_predictions_for_challenge?(@daily_challenge) ? @daily_challenge.users : [current_user]
-    @matches = @daily_challenge.matches.order('id') rescue []
+    @matches = @daily_challenge.matches.order('game_id') rescue []
   end
 
   # GET /predictions/1

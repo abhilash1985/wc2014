@@ -23,7 +23,7 @@ $(document).ready(function() {
 		// $(".dropdw").slideToggle();
 	// });
 
-	$("#point-table").tablesorter();
+	// $("#point-table").tablesorter();
 
 	// $(".match").click(function(){
 	// var m_id = $(this).data('matchid');

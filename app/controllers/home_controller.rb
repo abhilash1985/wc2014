@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   end
   
   def points_table
-    @daily_challenge = DailyChallenge.active_today.first
+    @daily_challenge = DailyChallenge.last_challenge.last #active_today.first # last_challenge.last
     @users = @daily_challenge.users
     @matches = @daily_challenge.matches.order('id')
   end

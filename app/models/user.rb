@@ -135,11 +135,11 @@ class User < ActiveRecord::Base
   end
   
   def has_predictions_for_challenge?(challenge)
-    not predictions_for_challenge(challenge).blank?
+    predictions_for_challenge(challenge).count == challenge.matches.count 
   end
   
   def predictions_for_challenge(challenge)
-    daily_challenges.by_id(challenge.try(:id)).first
+    daily_challenges.by_id(challenge)
   end
   
   def has_predictions_for_match?(match)
