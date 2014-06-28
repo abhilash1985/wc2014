@@ -4,7 +4,7 @@ module SharedMethods
   end
   
   def goal_difference
-    self.try(:team_a_score) - self.try(:team_b_score)
+    self.try(:team_a_score).to_i - self.try(:team_b_score).to_i
   end
   
 end
