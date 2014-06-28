@@ -7,22 +7,22 @@
   <thead>
     <tr>
       <th rowspan="3" valign="top"><%= "User" %></th>
-      <th rowspan="3" valign="top" class="color-blue"><%= "Total Points" %></th>
+      <th rowspan="3" valign="top" class="red"><%= "Total Points" %></th>
       <th rowspan="3" valign="top" class="color-blue"><%= "Points in %" %></th>
       <th rowspan="3" valign="top" class="color-blue"><%= "Score Predictions" %></th>
       <th rowspan="3" valign="top" class="color-blue"><%= "Winner Predictions" %></th>
       <% @matches.each do |match| %>
         <th colspan="2"><%= "Match #{match.game_id}" %></th>
         <th>Winner</th>
-        <th>GD</th>
-        <th>Points</th>
+        <!-- <th>GD</th> -->
+        <th class="red class-bold">Points</th>
       <% end %>
     </tr>
     <tr>
       <% @matches.each do |match| %>
         <th><%= match.match.split('Vs')[0] %></th>
         <th><%= match.match.split('Vs')[1] %></th>
-        <%=raw '<th></th>' * 3 %>
+        <%=raw '<th></th>' * 2 %>
       <% end %>
     </tr>
     <tr>
@@ -30,7 +30,7 @@
         <th class="class-bold"><%= match.team_a_score %></th>
         <th class="class-bold"><%= match.team_b_score %></th>
         <th class="class-bold"><%= match.result %></th>
-        <th><%= match.goal_difference %></th>
+        <!-- <th><%#= match.goal_difference %></th> -->
         <th></th>
       <% end %>
     </tr>
@@ -41,7 +41,7 @@
   	 <% count += 1 %>
       <tr>
       	<td><%= user.show_name %></td>
-      	<td class="color-blue"><%= user.total_points_for_challenge(@daily_challenge) %></td>
+      	<td class="red"><%= user.total_points_for_challenge(@daily_challenge) %></td>
       	<td class="color-blue"><%= user.total_percentage_for_challenge(@daily_challenge) %></td>
       	<td class="color-blue"><%= user.total_score_predictions(@daily_challenge) %></td>
       	<td class="color-blue"><%= user.total_winner_predictions(@daily_challenge) %></td>
@@ -49,8 +49,8 @@
           <td class="class-bold"><%= prediction.team_a_score %></td>
           <td class="class-bold"><%= prediction.team_b_score %></td>
           <td class="class-bold"><%= prediction.result %></td>
-          <td><%= prediction.goal_difference %></td>
-          <td><%= prediction.calculate_points %></td>
+          <!-- <td><%#= prediction.goal_difference %></td> -->
+          <td class="red class-bold"><%= prediction.calculate_points %></td>
         <% end %>
       </tr>
     <% end %>
