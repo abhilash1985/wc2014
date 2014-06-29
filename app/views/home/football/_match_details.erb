@@ -1,2 +1,15 @@
+<%= render '/shared/messages', :object => @prediction if @prediction.match == m %>
+<%= form_tag home_create_user_prediction_path, method: "post", class: 'form-horizontal', remote: true do %>
 
+<%= hidden_field_tag :match_id, m.id %>
+<%= hidden_field_tag :daily_challenge_id, dc_today.id %>
 
+<div class="form-group padding-5 text-center">
+  <h5><%= m.match %></h5>
+</div>
+
+ <div  class="float-left" id="<%= "game_#{m.game_id}" %>">
+   <%= render "/home/football/#{match_stage(m)}", :m => m, :current_user => current_user, :team => m.match %>
+ </div>
+
+<% end %>

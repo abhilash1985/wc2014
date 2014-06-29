@@ -3,7 +3,7 @@ class Prediction < ActiveRecord::Base
   belongs_to :daily_challenges_user
   belongs_to :match
   
-  before_save :save_points, :save_result, :save_options
+  before_save :save_points, :save_result, :save_options, :save_team_scores
   store_accessor :options, :goal_time
   store_accessor :options, :ft_score1, :ft_score2, :ft_result, 
                            :et_score1, :et_score2, :et_result, 
@@ -18,9 +18,10 @@ class Prediction < ActiveRecord::Base
         }
   scope :by_user, lambda { |user_id| where("daliy_challenges_users.user_id" => user_id) }
   
-  def save_prediction
+  def full_score
+    "#{team_a_score} - #{team_b_score}"
   end
-
+ 
   def save_points
     self.points = calculate_points
   end
@@ -53,32 +54,25 @@ class Prediction < ActiveRecord::Base
     self.compare('result') ? 2 : 0
   end
   
-  def calculate_result
-    teams = self.match.match.split('Vs')
-    if self.team_a_score == self.team_b_score
-      'Draw'
-    elsif self.team_a_score > self.team_b_score
-      teams[0].strip
-    elsif self.team_a_score < self.team_b_score
-      teams[1].strip
-    end 
-  end
-  
   def options_points
-    unless self.match.options.blank? || self.options.blank?
+    if !self.match.options.blank? && !self.options.blank?
       case self.match.stage
       when 'group'
         0
       when 'knockout'
         (self.options['goal_time'] == self.match.options['goal_time']) ? 2 : 0
       else
-        self.match.options.inject(0){|total, value| total += 1 if compare_final_options(value[0], value[1])  }
+        self.match.options.inject(0){|total, value| total += 1 if compare_final_options(value[0], value[1]); total }
       end
     end
   end
   
   def compare_final_options(key, value)
-    self.options[key] == value
+    if key.match(/result/).blank?  
+      self.options[key].to_i == value.to_i
+    else
+      self.options[key] == value
+    end
   end
   
   def correct_score_count

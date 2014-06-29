@@ -1,0 +1,10 @@
+<% if prediction.match.knockout? %>
+  <td><%= prediction.options["goal_time"] rescue "" %></td>
+<% elsif prediction.match.final_stage? %>
+  <td><%= prediction.options["ft_score1"] rescue "" %></td>
+  <td><%= prediction.options["ft_score2"] rescue "" %></td>
+  <td><%= prediction.options["et_score1"] rescue "" %></td>
+  <td><%= prediction.options["et_score2"] rescue "" %></td>
+  <td><%= prediction.options["so_score1"] rescue "" %></td>
+  <td><%= prediction.options["so_score2"] rescue "" %></td>
+<% end %>

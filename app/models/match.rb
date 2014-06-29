@@ -3,7 +3,7 @@ class Match < ActiveRecord::Base
   has_many :predictions, :dependent => :destroy
   # has_many :users, :through => :predictions
   
-  before_save :save_points, :save_result, :save_options 
+  before_save :save_points, :save_result, :save_options, :save_team_scores 
   
   after_save :update_predictions
   store_accessor :options, :goal_time
@@ -79,14 +79,11 @@ class Match < ActiveRecord::Base
     self.result = calculate_result
   end
   
-  def calculate_result
-    teams = self.match.split('Vs')
-    if self.team_a_score == self.team_b_score
-      'Draw'
-    elsif self.team_a_score > self.team_b_score
-      teams[0].strip
-    elsif self.team_a_score < self.team_b_score
-      teams[1].strip
-    end 
+  def disabled
+    'disabled' if daily_challenge.expired?
+  end
+  
+  def column_count
+    final_stage? ? 7 : 2
   end
 end

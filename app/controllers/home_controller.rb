@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   end
   
   def points_table
-    @daily_challenge = DailyChallenge.last_challenge.last
+    @daily_challenge = DailyChallenge.last_challenge.last #last_challenge
     @users = @daily_challenge.users
     @matches = @daily_challenge.matches.order('id')
   end
@@ -17,7 +17,8 @@ class HomeController < ApplicationController
     @users = User.all
   end
 
-  def create_user_prediction		
+  def create_user_prediction
+    index		
     match = Match.find params[:match_id]
     options = params
     ['commit', 'action', 'utf8', 'controller'].each { |col|

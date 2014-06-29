@@ -1,0 +1,11 @@
+<% teams = match.match.split('Vs') %>
+<% if match.knockout? %>
+  <th>Goal On</th>
+<% elsif match.final_stage? %>
+  <th>F.T (<%= teams[0].strip %>)</th>
+  <th>F.T (<%= teams[1].strip %>)</th>
+  <th>E.T (<%= teams[0].strip %>)</th>
+  <th>E.T (<%= teams[1].strip %>)</th>
+  <th>Shootout (<%= teams[0].strip %>)</th>
+  <th>Shootout (<%= teams[1].strip %>)</th>
+<% end %>

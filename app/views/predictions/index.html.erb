@@ -11,14 +11,14 @@
       <% @matches.each do |match| %>
         <th colspan="2"><%= "Match #{match.game_id}" %></th>
         <th>Winner</th>
-        <th>Goal On</th>
+        <%= render '/home/football/prediction_header', :match => match %>
       <% end %>
     </tr>
     <tr>
       <% @matches.each do |match| %>
         <th><%= match.match.split('Vs')[0] %></th>
         <th><%= match.match.split('Vs')[1] %></th>
-        <%=raw '<th></th>' * 2 %>
+        <%=raw '<th></th>' * match.column_count %>
       <% end %>
     </tr>
   </thead>
@@ -33,7 +33,7 @@
           <td><%= prediction.team_a_score %></td>
           <td><%= prediction.team_b_score %></td>
           <td><%= prediction.result %></td>
-          <td><%= prediction.options["goal_time"] rescue "" %></td>
+          <%= render '/home/football/prediction_columns', :prediction => prediction %>
         <% end %>
       </tr>
     <% end %>
