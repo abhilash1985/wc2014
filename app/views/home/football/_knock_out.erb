@@ -11,21 +11,21 @@
   	    </tr>
   	    <tr class='match'>
       		<td><%= label_tag(:full_time, "Full Time", :class => 'class-bold') %></td>
-      		<td><%= text_field_tag(:ft_score1, '', class: "input-xsmall search-query") %></td>
+      		<td><%= number_field_tag(:ft_score1, '', class: "input-xsmall search-query") %></td>
       		<td><%= label_tag(:symbol, ":") %></td>
-      		<td><%= text_field_tag(:ft_score2, '', class: "input-xsmall search-query") %></td>
+      		<td><%= number_field_tag(:ft_score2, '', class: "input-xsmall search-query") %></td>
       	</tr>
       	<tr class='match'>
       		<td><%= label_tag(:extra_time, "Extra Time", :class => 'class-bold') %></td>
-      		<td><%= text_field_tag(:et_score1, '', class: "input-xsmall search-query") %></td>
+      		<td><%= number_field_tag(:et_score1, '', class: "input-xsmall search-query") %></td>
       		<td><%= label_tag(:symbol, ":") %></td>
-      		<td><%= text_field_tag(:et_score2, '', class: "input-xsmall search-query") %></td>
+      		<td><%= number_field_tag(:et_score2, '', class: "input-xsmall search-query") %></td>
       	</tr>
       	<tr class='match'>
       		<td><%= label_tag(:shootout, "Shootout", :class => 'class-bold') %></td>
-      		<td><%= text_field_tag(:so_score1, '', class: "input-xsmall search-query") %></td>
+      		<td><%= number_field_tag(:so_score1, '', class: "input-xsmall search-query") %></td>
       		<td><%= label_tag(:symbol, ":") %></td>
-      		<td><%= text_field_tag(:so_score2, '', class: "input-xsmall search-query") %></td>
+      		<td><%= number_field_tag(:so_score2, '', class: "input-xsmall search-query") %></td>
       	</tr>
   	</table>
   </div>
