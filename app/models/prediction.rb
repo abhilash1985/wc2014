@@ -66,7 +66,7 @@ class Prediction < ActiveRecord::Base
   
   def options_points
     unless self.match.options.blank? || self.options.blank?
-      case stage
+      case self.match.stage
       when 'group'
         0
       when 'knockout'
