@@ -1,1 +1,1 @@
-$('#match-prediction').html("<%= escape_javascript(render(:partial => '/home/match_predictions')) %>");
+$("#<%= @id %>").html("<%= escape_javascript(render("/home/football/match_details", :m => @match, :current_user => current_user, :dc_today => @match.daily_challenge)) %>");
