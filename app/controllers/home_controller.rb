@@ -12,7 +12,8 @@ class HomeController < ApplicationController
   end
   
   def weekly_points_table
-    @daily_challenges = DailyChallenge.weekly.not_today
+    @daily_challenges = (params[:status] == 'all') ? DailyChallenge.not_today : DailyChallenge.weekly.not_today
+    @period = 'Weekly ' unless params[:status] == 'all'
     @users = User.all
   end
 
