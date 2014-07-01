@@ -69,6 +69,11 @@ module SharedMethods
       teams[1].strip
     end
   end
+  
+  def won_on
+    ['ft', 'et', 'so'].each { |name| @won_on = name; break if ['Draw', '-'].exclude?(self.options[name + '_result']) }
+    @won_on
+  end
 end
 
 module ClassMethods

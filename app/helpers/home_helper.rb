@@ -10,4 +10,8 @@ module HomeHelper
   def match_stage(match)
     match.final_stage? ? 'knock_out' : 'group_stage'
   end
+  
+  def won_on_options
+    { 'ft' => 'Full Time', 'et' => 'Extra Time', 'so' => 'Shootout' }
+  end
 end

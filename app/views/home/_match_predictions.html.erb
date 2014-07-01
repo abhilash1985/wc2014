@@ -1,6 +1,5 @@
-<% daily_challenges = DailyChallenge.active_today %>
 <%=raw '<br /> <br /><br /> <br />' * @daily_challenges.count  %>
-<% daily_challenges.each do |dc_today| %>
+<% @daily_challenges.each do |dc_today| %>
 
 <div class = "daily_pred">
   <% dc_today.matches.order_by_game_id.each do |m|%>

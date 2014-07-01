@@ -14,7 +14,7 @@
       <% @matches.each do |match| %>
         <th colspan="2"><%= "Match #{match.game_id}" %></th>
         <th>Winner</th>
-        <!-- <th>GD</th> -->
+        <%=raw '<th></th>' if match.final_stage? %>
         <th class="red class-bold">Points</th>
       <% end %>
     </tr>
@@ -23,6 +23,7 @@
         <th><%= match.match.split('Vs')[0] %></th>
         <th><%= match.match.split('Vs')[1] %></th>
         <%=raw '<th></th>' * 2 %>
+        <%=raw '<th></th>' if match.final_stage? %>
       <% end %>
     </tr>
     <tr>
@@ -30,7 +31,7 @@
         <th class="class-bold"><%= match.team_a_score %></th>
         <th class="class-bold"><%= match.team_b_score %></th>
         <th class="class-bold"><%= match.result %></th>
-        <!-- <th><%#= match.goal_difference %></th> -->
+        <%=raw "<th>#{won_on_options[match.won_on]}</th>" if match.final_stage? %>
         <th></th>
       <% end %>
     </tr>
@@ -41,16 +42,16 @@
   	 <% count += 1 %>
       <tr>
       	<td><%= user.show_name %></td>
-      	<td class="red"><%= user.total_points_for_challenge(@daily_challenge) %></td>
-      	<td class="color-blue"><%= user.total_percentage_for_challenge(@daily_challenge) %></td>
-      	<td class="color-blue"><%= user.total_score_predictions(@daily_challenge) %></td>
-      	<td class="color-blue"><%= user.total_winner_predictions(@daily_challenge) %></td>
+      	<td class="red padding-left-15"><%= user.total_points_for_challenge(@daily_challenge) %></td>
+      	<td class="color-blue padding-left-15"><%= user.total_percentage_for_challenge(@daily_challenge) %></td>
+      	<td class="color-blue padding-left-15"><%= user.total_score_predictions(@daily_challenge) %></td>
+      	<td class="color-blue padding-left-15"><%= user.total_winner_predictions(@daily_challenge) %></td>
       	<% user.predictions_for(@daily_challenge).each do |prediction| %>
-          <td class="class-bold"><%= prediction.team_a_score %></td>
-          <td class="class-bold"><%= prediction.team_b_score %></td>
-          <td class="class-bold"><%= prediction.result %></td>
-          <!-- <td><%#= prediction.goal_difference %></td> -->
-          <td class="red class-bold"><%= prediction.calculate_points %></td>
+          <td class="class-bold padding-left-15"><%= prediction.team_a_score %></td>
+          <td class="class-bold padding-left-15"><%= prediction.team_b_score %></td>
+          <td class="class-bold padding-left-15"><%= prediction.result %></td>
+          <%=raw "<td class='class-bold padding-left-15'>#{won_on_options[prediction.won_on]}</th>" if prediction.match.final_stage? %>
+          <td class="red class-bold padding-left-15"><%= prediction.calculate_points %></td>
         <% end %>
       </tr>
     <% end %>

@@ -11,10 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140617163401) do
+ActiveRecord::Schema.define(version: 20140627014625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "daily_challenges", force: true do |t|
     t.string   "name"
@@ -42,7 +43,11 @@ ActiveRecord::Schema.define(version: 20140617163401) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "game_id"
+    t.string   "stage",              default: "group"
+    t.hstore   "options"
   end
+
+  add_index "matches", ["stage"], name: "index_matches_on_stage", using: :btree
 
   create_table "predictions", force: true do |t|
     t.integer  "daily_challenges_user_id"
@@ -53,6 +58,7 @@ ActiveRecord::Schema.define(version: 20140617163401) do
     t.string   "points",                   default: "0"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.hstore   "options"
   end
 
   create_table "users", force: true do |t|
