@@ -13,25 +13,29 @@
  *= require_tree .
  *= require_self
  *= require dataTables/jquery.dataTables
+ *= require jquery.countdown
  */
+
+
+
 .ind-body {
 	background-color: #fff;
 	opacity: 0.8;
 	float: left;
 	border: 1px solid;
-    border-radius: 25px;
+	border-radius: 25px;
 }
-.pf{
+.pf {
 	float: left;
 	width: 320px;
 	height: 320px;
 	background-color: #fff;
 	opacity: 0.9;
-    margin-left: 20px;
-    margin-top: 20px;
-    border: 1px solid;
-    border-radius: 25px;
-    padding: 10px;
+	margin-left: 20px;
+	margin-top: 20px;
+	border: 1px solid;
+	border-radius: 25px;
+	padding: 10px;
 	/*display: none;*/
 }
 .discussions {
@@ -40,12 +44,12 @@
 	opacity: 1;
 	float: left;
 	border: 1px solid;
-    border-radius: 25px;
+	border-radius: 25px;
 }
 .data-table {
 	padding: 25px;
 }
 
 .red {
-    color: #d14;
+	color: #d14;
 }

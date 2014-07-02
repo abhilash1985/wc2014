@@ -6,7 +6,10 @@
       <% @daily_challenges.each do |daily_challenge| %>
       <table class="show-game">
       	<tr>
-      		<td colspan="3"><h4><%= daily_challenge.name %></h4></td>
+      		<td><h4><%= daily_challenge.name %></h4></td>
+      		<td colspan="2">
+                <%= render '/shared/countdown', :datetime => daily_challenge.end_date, :div_id => "countdown#{daily_challenge.id}" %>
+      		</td>
       	</tr>
       <% daily_challenge.matches.order_by_game_id.each do |match| %>
         <tr class='match' id=<%= "m#{match.id}"%> data-matchid=<%= "#{match.id}" %> >

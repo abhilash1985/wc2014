@@ -17,6 +17,7 @@
 //= require turbolinks
 //= require_tree .
 //= require dataTables/jquery.dataTables
+//= require jquery.countdown
 
 $(document).ready(function() {
 	// $("#show-drop").hover(function() {

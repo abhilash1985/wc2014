@@ -2,10 +2,10 @@
 <% if match.knockout? %>
   <th>Goal On</th>
 <% elsif match.final_stage? %>
-  <th>F.T (<%= teams[0].strip %>)</th>
-  <th>F.T (<%= teams[1].strip %>)</th>
-  <th>E.T (<%= teams[0].strip %>)</th>
-  <th>E.T (<%= teams[1].strip %>)</th>
-  <th>Shootout (<%= teams[0].strip %>)</th>
-  <th>Shootout (<%= teams[1].strip %>)</th>
+  <th>F.T (<%= match.team_a_short_name %>)</th>
+  <th>F.T (<%= match.team_b_short_name %>)</th>
+  <th>E.T (<%= match.team_a_short_name %>)</th>
+  <th>E.T (<%= match.team_b_short_name %>)</th>
+  <th>P.K (<%= match.team_a_short_name %>)</th>
+  <th>P.K (<%= match.team_b_short_name %>)</th>
 <% end %>

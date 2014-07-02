@@ -1,0 +1,20 @@
+<span id="<%= div_id %>" class="imageLayout countdown-timer">
+    <span class="image{d10}"></span> 
+    <span class="image{d1}"></span> 
+    <span class="imageDay"></span> 
+    <span class="imageSpace"></span> 
+    <span class="image{h10}"></span> 
+    <span class="image{h1}"></span> 
+    <span class="imageSep"></span> 
+    <span class="image{m10}"></span> 
+    <span class="image{m1}"></span> 
+    <span class="imageSep"></span> 
+    <span class="image{s10}"></span> 
+    <span class="image{s1}"></span> 
+</span>
+
+<script type="text/javascript">
+    // liftoffTime = "<!--%= datetime.strftime("%Y-%m-%d %I:%m:%S") %-->"
+    liftoffTime = new Date('<%= datetime.year %>', '<%= datetime.mon - 1 %>', '<%= datetime.day %>', '<%= datetime.hour %>', '<%= datetime.min %>', '<%= datetime.sec %>')
+    $('#<%= div_id %>').countdown({until: liftoffTime, format: 'dHMS', padZeroes: true, compact: true, layout: $('#<%= div_id %>').html()});
+</script>

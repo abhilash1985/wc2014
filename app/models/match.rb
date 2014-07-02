@@ -86,4 +86,25 @@ class Match < ActiveRecord::Base
   def column_count
     final_stage? ? 7 : 2
   end
+  
+  def teams
+    self.match.split('Vs')
+  end
+  
+  def team_a_name
+    self.teams[0].strip
+  end
+  
+  def team_a_short_name
+    team_a_name[0,3].upcase
+  end
+  
+  def team_b_name
+    self.teams[1].strip
+  end
+  
+  def team_b_short_name
+    team_b_name[0,3].upcase
+  end
+  
 end
