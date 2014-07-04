@@ -10,7 +10,7 @@
   		    <th><%= label_tag(:team_b, "#{team.split('Vs').last.strip}", :class => 'class-bold') %></th>
   	    </tr>
   	    <tr class='match'>
-      		<td><%= label_tag(:full_time, "Full Time", :class => 'class-bold') %></td>
+      		<td><%= label_tag(:full_time, "Regular Time", :class => 'class-bold') %></td>
       		<td><%= number_field_tag(:ft_score1, '', class: "input-xsmall search-query") %></td>
       		<td><%= label_tag(:symbol, ":") %></td>
       		<td><%= number_field_tag(:ft_score2, '', class: "input-xsmall search-query") %></td>
@@ -22,7 +22,7 @@
       		<td><%= number_field_tag(:et_score2, '', class: "input-xsmall search-query") %></td>
       	</tr>
       	<tr class='match'>
-      		<td><%= label_tag(:shootout, "Shootout", :class => 'class-bold') %></td>
+      		<td><%= label_tag(:shootout, "Penalty Kick", :class => 'class-bold') %></td>
       		<td><%= number_field_tag(:so_score1, '', class: "input-xsmall search-query") %></td>
       		<td><%= label_tag(:symbol, ":") %></td>
       		<td><%= number_field_tag(:so_score2, '', class: "input-xsmall search-query") %></td>
@@ -45,25 +45,25 @@
   		    <th><%= label_tag(:team_b, "#{team.split('Vs').last.strip}", :class => 'class-bold') %></th>
   	    </tr>
   	    <tr class='match'>
-      		<td class="text-left"><%= label_tag(:full_time, "Full Time", :class => 'class-bold') %></td>
-      		<td><%= label_tag(:ft_score1, (prediction.options["ft_score1"] rescue "") ) %></td>
-      		<td><%= label_tag(:ft_score2, (prediction.options["ft_score2"] rescue "") ) %></td>
+      		<td class="text-left"><%= label_tag(:full_time, "Regular Time", :class => 'class-bold') %></td>
+      		<td><%= label_tag(:ft_score1, (prediction.options["ft_score1"].to_i rescue "") ) %></td>
+      		<td><%= label_tag(:ft_score2, (prediction.options["ft_score2"].to_i rescue "") ) %></td>
       	</tr>
       	<tr class='match'>
       		<td class="text-left"><%= label_tag(:extra_time, "Extra Time", :class => 'class-bold') %></td>
-      		<td><%= label_tag(:et_score1, (prediction.options["et_score1"] rescue "") ) %></td>
-      		<td><%= label_tag(:et_score2, (prediction.options["et_score2"] rescue "") ) %></td>
+      		<td><%= label_tag(:et_score1, (prediction.options["et_score1"].to_i rescue "") ) %></td>
+      		<td><%= label_tag(:et_score2, (prediction.options["et_score2"].to_i rescue "") ) %></td>
       	</tr>
       	<tr class='match'>
-      		<td class="text-left"><%= label_tag(:shootout, "Shootout", :class => 'class-bold') %></td>
-      		<td><%= label_tag(:so_score1, (prediction.options["so_score1"] rescue "") ) %></td>
-      		<td><%= label_tag(:so_score2, (prediction.options["so_score2"] rescue "") ) %></td>
+      		<td class="text-left"><%= label_tag(:shootout, "Penalty Kick", :class => 'class-bold') %></td>
+      		<td><%= label_tag(:so_score1, (prediction.options["so_score1"].to_i rescue "") ) %></td>
+      		<td><%= label_tag(:so_score2, (prediction.options["so_score2"].to_i rescue "") ) %></td>
       	</tr>
   	</table>
   	
   	<div class="padding-5">
   	  <div class="text-center">
-        <%= label_tag(:full_score, "Full Score : #{prediction.full_score}", :class => 'class-bold') %>
+        <%= label_tag(:full_score, "Full Time : #{prediction.full_score}", :class => 'class-bold') %>
       </div>
   	
   	  <div class="text-center">
