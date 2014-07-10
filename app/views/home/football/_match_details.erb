@@ -5,7 +5,7 @@
 <%= hidden_field_tag :daily_challenge_id, dc_today.id %>
 
 <div class="form-group padding-5 text-center">
-  <h5><%= m.match %></h5>
+  <h4 class="color-blue"><%= m.stage.gsub('_', ' ').titleize %> : <%= m.match %></h4>
 </div>
 
  <div  class="float-left" id="<%= "game_#{m.game_id}" %>">
