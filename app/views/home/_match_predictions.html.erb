@@ -3,7 +3,7 @@
 
 <div class = "daily_pred">
   <% dc_today.matches.order_by_game_id.each do |m|%>
-  <div class="pf" id='<%="match#{m.game_id}"%>' >
+  <div class="pf" id='<%="match#{m.game_id}"%>'>
   	<%= render "/home/football/match_details", :m => m, :current_user => current_user, :dc_today => dc_today %>
   </div>
   <% end %>

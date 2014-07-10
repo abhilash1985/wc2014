@@ -4,13 +4,13 @@ class DailyChallenge < ActiveRecord::Base
   has_many :users, through: :daily_challenges_users
   has_many :predictions, through: :daily_challenges_users
   
-  scope :active, lambda { where("end_date >= ?", Date.today) }
-  scope :active_today, lambda { where("'#{Date.today.to_s} 09:00:00' between start_date and end_date" ) }
-  scope :today, lambda { where(:end_date => Date.today.beginning_of_day..Date.today.end_of_day ) }
+  scope :active, lambda { where("end_date >= ?", Time.current.to_date) }
+  scope :active_today, lambda { where("'#{Time.current.to_date.to_s} 09:00:00' between start_date and end_date" ) }
+  scope :today, lambda { where(:end_date => Time.current.to_date.beginning_of_day..Time.current.to_date.end_of_day ) }
   scope :weekly, lambda { |date = Date.yesterday| where(:end_date => date.beginning_of_week.beginning_of_day..date.end_of_week.end_of_day).order(:id) }
   scope :by_name, lambda { |name| where(name: name) }
   scope :by_id, lambda { |id| where(id: id) }
-  scope :last_challenge, lambda { where("end_date <= ?", Date.today ) }
+  scope :last_challenge, lambda { where("end_date <= ?", Time.current.to_date ) }
   scope :not_today, lambda { where.not(:id => DailyChallenge.active_today) }
   
   validates :name, :start_date, :end_date, :presence => true
@@ -65,7 +65,7 @@ class DailyChallenge < ActiveRecord::Base
   end
   
   def weekly_winner_text
-    "Last Week #{winner_first_text} #{winner_array[1].join(',').strip.upcase} with #{winner_array[0]} points#{winner_last_text}"
+    "Last Week #{weekly_winner_first_text} #{weekly_winner_array[1].join(',').strip.upcase} with #{winner_array[0]} points#{weekly_winner_last_text}"
   end
   
   def multiple_winners?

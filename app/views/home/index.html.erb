@@ -1,14 +1,14 @@
-<body> 
+<body>
   <div class = "ind-body">
   	<%= render '/home/previous_day_winner' %>
-    <h5 class="padding-5 text-center">Today's Matches</h5>
+    <h5 class="padding-5 text-center">Today's Challenges</h5>
     <div class = "ind-inner match-div">
       <% @daily_challenges.each do |daily_challenge| %>
       <table class="show-game">
       	<tr>
       		<td><h4><%= daily_challenge.name %></h4></td>
       		<td colspan="2">
-                <%= render '/shared/countdown', :datetime => daily_challenge.end_date, :div_id => "countdown#{daily_challenge.id}" %>
+            <%= render '/shared/countdown', :datetime => daily_challenge.end_date, :div_id => "countdown#{daily_challenge.id}" %>
       		</td>
       	</tr>
       <% daily_challenge.matches.order_by_game_id.each do |match| %>
@@ -23,7 +23,7 @@
     </div>
   </div>
 
-<%=raw '<br /> <br />' * @daily_challenges.count  %>
+<%#=raw '<br /> <br />' * @daily_challenges.count  %>
 <div class="show-match" id="match-prediction">
   <%= render "match_predictions" %>
 </div>
