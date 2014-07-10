@@ -1,6 +1,9 @@
-.fifa-wc{
+.fifa-wc {
 	background-image: url('/assets/World-Cup-FIFA-2014-Wallpaper-HD.jpg');
-	background-repeat: no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .final {
