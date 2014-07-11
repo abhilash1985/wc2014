@@ -1,7 +1,10 @@
 <%- model_class = Prediction -%>
+<% @daily_challenges.each do |daily_challenge| %>
 <div class="page-header ind-body match-result text-center">
-  <h3><%=t '.title', :default => "#{@daily_challenge.try(:name)} - #{Date.today.to_s(:date_format)}" %></h3>
+  <h4><%=t '.title', :default => "#{daily_challenge.try(:name)} - #{daily_challenge.start_date.to_date.to_s(:date_format)}" %></h4>
 </div>
+<% @users = current_user.has_predictions_for_challenge?(daily_challenge) ? daily_challenge.users : [current_user] %>
+<% @matches = daily_challenge.matches.order('game_id') rescue [] %>
 <div class = "ind-body data-table">
 <table class="table table-striped table-bordered">
   <thead>
@@ -29,7 +32,7 @@
       <tr>
       	<td><%= count %></td>
       	<td><%= user.show_name %></td>
-      	<% user.predictions_for(@daily_challenge).each do |prediction| %>
+      	<% user.predictions_for(daily_challenge).each do |prediction| %>
           <td><%= prediction.team_a_score %></td>
           <td><%= prediction.team_b_score %></td>
           <td><%= prediction.result %></td>
@@ -40,6 +43,6 @@
   </tbody>
 </table>
 </div>
-
+<% end %>
 <%= render '/shared/slide_menu' %>
 <%= render '/shared/discussions' %>

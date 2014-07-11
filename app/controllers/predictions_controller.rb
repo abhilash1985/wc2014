@@ -4,9 +4,10 @@ class PredictionsController < ApplicationController
   # GET /predictions
   # GET /predictions.json
   def index
-    @daily_challenge = ((1..13).to_a << 18).include?(current_user.id) ? DailyChallenge.active_today.first : DailyChallenge.active_today.last
-    @users = current_user.has_predictions_for_challenge?(@daily_challenge) ? @daily_challenge.users : [current_user]
-    @matches = @daily_challenge.matches.order('game_id') rescue []
+    @daily_challenges = ((1..13).to_a << 18).include?(current_user.id) ? DailyChallenge.active_today : [DailyChallenge.active_today.last]
+    # @daily_challenge = ((2..13).to_a << 18).include?(current_user.id) ? DailyChallenge.active_today.first : DailyChallenge.active_today.last
+    # @users = current_user.has_predictions_for_challenge?(@daily_challenge) ? @daily_challenge.users : [current_user]
+    # @matches = @daily_challenge.matches.order('game_id') rescue []
   end
 
   # GET /predictions/1
