@@ -83,6 +83,7 @@ GEM
     minitest (5.3.4)
     multi_json (1.10.1)
     nested_form (0.3.2)
+    newrelic_rpm (3.9.1.236)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
@@ -198,6 +199,7 @@ DEPENDENCIES
   jquery-countdown-rails (~> 2.0.0)
   jquery-datatables-rails!
   jquery-rails
+  newrelic_rpm
   pg
   pundit
   rails (= 4.1.1)
