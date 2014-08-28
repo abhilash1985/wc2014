@@ -16,15 +16,13 @@ class DailyChallenge < ActiveRecord::Base
   validates :name, :start_date, :end_date, :presence => true
   validates :name, :uniqueness => true
   
-  class << self
-    def create_daily_challenge(name, start_date, end_date)
-      challenge = DailyChallenge.by_name(name).first_or_initialize
-      challenge.name = name
-      challenge.start_date = start_date.to_s + ' 00:00'
-      challenge.end_date = end_date.to_s + ' 18:00'
-      challenge.save!
-      challenge
-    end
+  def self.create_daily_challenge(name, start_date, end_date)
+    challenge = by_name(name).first_or_initialize
+    challenge.name = name
+    challenge.start_date = start_date.to_s + ' 00:00'
+    challenge.end_date = end_date.to_s + ' 18:00'
+    challenge.save!
+    challenge
   end
   
   def create_match(game_id, match_name, played_on, team_a_score, team_b_score, result, stage, options)
