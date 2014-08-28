@@ -15,22 +15,9 @@
 //= require jquery.ui.sortable
 //= require twitter/bootstrap
 //= require turbolinks
-//= require_tree .
+//= require jquery.remotipart
 //= require dataTables/jquery.dataTables
 //= require jquery.countdown
+//= require_tree .
 
-$(document).ready(function() {
-	// $("#show-drop").hover(function() {
-		// $(".dropdw").slideToggle();
-	// });
-
-	// $("#point-table").tablesorter();
-
-	// $(".match").click(function(){
-	// var m_id = $(this).data('matchid');
-	// $("#m"+m_id).click(function(){
-	// $("#match"+m_id).slideToggle();
-	// });
-	// });
-});
 
